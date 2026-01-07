@@ -146,30 +146,181 @@ export const products = [
   },
 
   // 🧽 Microfiber Cloths & Towels
-  { id: 16, category: "Microfiber Cloths & Towels", name: "AmazonBasics Microfiber Cloth", price: "₹299" },
-  { id: 17, category: "Microfiber Cloths & Towels", name: "Wavex Microfiber Towel", price: "₹349" },
-  { id: 18, category: "Microfiber Cloths & Towels", name: "3M Microfiber Cloth Pack", price: "₹499" },
-  { id: 19, category: "Microfiber Cloths & Towels", name: "Softspun Microfiber Cleaning Cloths", price: "₹399" },
-  { id: 20, category: "Microfiber Cloths & Towels", name: "Meguiar’s Supreme Shine Towel", price: "₹899" },
+   {
+    id: 801,
+    category: "Microfiber Cloths & Towels",
+    name: "SOFTSPUN Microfiber Chenille Wash Mitt – 1700 GSM (Single)",
+    brand: "SOFTSPUN",
+    badge: "Amazon's Choice",
+    rating: 4.2,
+    amazonLink: "https://amzn.to/4pv0k8S"
+  },
+  {
+    id: 802,
+    category: "Microfiber Cloths & Towels",
+    name: "SOFTSPUN Microfiber Chenille Wash Mitt – 1700 GSM (2 Piece Set)",
+    brand: "SOFTSPUN",
+    badge: "Best Seller",
+    rating: 4.3,
+    amazonLink: "https://amzn.to/45uZpxQ"
+  },
+  {
+    id: 803,
+    category: "Microfiber Cloths & Towels",
+    name: "VARNIVA ESSENTIALS Microfiber Cleaning Cloths (Pack of 4, 350 GSM)",
+    brand: "VARNIVA ESSENTIALS",
+    badge: "Premium Pick",
+    rating: 5.0,
+    amazonLink: "https://amzn.to/3YuXxkV"
+  },
+  {
+    id: 804,
+    category: "Microfiber Cloths & Towels",
+    name: "Microfiber Car Cleaning Towels (Pack of 5, 400 GSM)",
+    brand: "Generic",
+    badge: "Budget Pick",
+    rating: 3.5,
+    amazonLink: "https://amzn.to/3LodbeW"
+  },
 
   // 🪑 Interior Cleaning
-  { id: 21, category: "Interior Cleaning", name: "3M Dashboard Cleaner", price: "₹349" },
-  { id: 22, category: "Interior Cleaning", name: "Wavex Interior Cleaner", price: "₹399" },
-  { id: 23, category: "Interior Cleaning", name: "Sonax Upholstery Cleaner", price: "₹799" },
-  { id: 24, category: "Interior Cleaning", name: "Meguiar’s Interior Detailer", price: "₹999" },
-  { id: 25, category: "Interior Cleaning", name: "Formula 1 Leather Cleaner", price: "₹649" },
+  {
+    id: 2101,
+    category: "Interior Cleaning",
+    name: "3M Dashboard Dresser (250 ml) – Non Greasy Interior Shine",
+    brand: "3M",
+    badge: "Amazon's Choice",
+    rating: 4.2,
+    amazonLink: "https://amzn.to/3NacwhJ"
+  },
+  {
+    id: 2102,
+    category: "Interior Cleaning",
+    name: "ShineXPro Car Interior Cleaner & Protectant (300 ml, Citrus Scent)",
+    brand: "ShineXPro",
+    badge: "Amazon's Choice",
+    rating: 4.0,
+    amazonLink: "https://amzn.to/3Lxu3zW"
+  },
+  {
+    id: 2103,
+    category: "Interior Cleaning",
+    name: "M95 Car Dashboard Polish & Interior Cleaning Kit (Cleaner + Polish + Microfiber)",
+    brand: "M95",
+    badge: "Amazon's Choice",
+    rating: 4.5,
+    amazonLink: "https://amzn.to/44Wi1H0"
+  },
+  {
+    id: 2104,
+    category: "Interior Cleaning",
+    name: "Wavex Dashboard Polish & Leather Conditioner (350 ml)",
+    brand: "WaveX",
+    badge: "Amazon's Choice",
+    rating: 4.3,
+    amazonLink: "https://amzn.to/450LhfB"
+  },
+  {
+    id: 2105,
+    category: "Interior Cleaning",
+    name: "3M Foaming Car Interior Cleaner (Upholstery & Leather, 290 g)",
+    brand: "3M",
+    badge: "#1 Best Seller",
+    rating: 4.1,
+    amazonLink: "https://amzn.to/450Lhw7"
+  },
 
   // ✨ Polish, Wax & Protection
-  { id: 26, category: "Polish, Wax & Protection", name: "Formula 1 Car Wax", price: "₹599" },
-  { id: 27, category: "Polish, Wax & Protection", name: "3M Car Wax Polish", price: "₹699" },
-  { id: 28, category: "Polish, Wax & Protection", name: "Turtle Wax Super Hard Shell", price: "₹1,099" },
-  { id: 29, category: "Polish, Wax & Protection", name: "Meguiar’s ScratchX", price: "₹899" },
-  { id: 30, category: "Polish, Wax & Protection", name: "Sonjaro Ceramic Spray Coating", price: "₹1,499" },
+  {
+    id: 3101,
+    category: "Polish, Wax & Protection",
+    name: "ShineXPro Graphene Coating Spray (250 ml) – Extreme Gloss & UV Protection",
+    brand: "ShineXPro",
+    badge: "Graphene Coating",
+    rating: 3.8,
+    amazonLink: "https://amzn.to/3N8aUFc"
+  },
+  {
+    id: 3102,
+    category: "Polish, Wax & Protection",
+    name: "WaveX Carnauba Wax Car Polish Cream (1 L) – Deep Wet Shine",
+    brand: "WaveX",
+    badge: "Amazon's Choice",
+    rating: 4.1,
+    amazonLink: "https://amzn.to/4pv0Wvc"
+  },
+  {
+    id: 3103,
+    category: "Polish, Wax & Protection",
+    name: "3M Premium Liquid Wax (200 ml) – UV Protection & Water Repellent",
+    brand: "3M",
+    badge: "Best Seller",
+    rating: 4.0,
+    amazonLink: "https://amzn.to/4po2MOb"
+  },
+  {
+    id: 3104,
+    category: "Polish, Wax & Protection",
+    name: "3M Specialty Cream Wax (220 g) – High Gloss & Streak Free",
+    brand: "3M",
+    badge: "Amazon's Choice",
+    rating: 4.2,
+    amazonLink: "https://amzn.to/4pxzih5"
+  },
+  {
+    id: 3105,
+    category: "Polish, Wax & Protection",
+    name: "ShineXPro DIY Ceramic Coating Spray (250 ml) – Long Lasting Protection",
+    brand: "ShineXPro",
+    badge: "Ceramic Coating",
+    rating: 3.8,
+    amazonLink: "https://amzn.to/3LexaN7"
+  },
 
   // 🌸 Car Perfume
-  { id: 31, category: "Car Perfume", name: "Areon Gel Perfume", price: "₹399" },
-  { id: 32, category: "Car Perfume", name: "Godrej Aer Twist", price: "₹299" },
-  { id: 33, category: "Car Perfume", name: "Involve One Musk", price: "₹599" },
-  { id: 34, category: "Car Perfume", name: "My Shaldan Air Freshener", price: "₹449" },
-  { id: 35, category: "Car Perfume", name: "Little Trees Black Ice", price: "₹199" }
+   {
+    id: 4101,
+    category: "Car Perfume",
+    name: "Ambi Pur Car Freshener Gel – Relaxing Lavender (75 g)",
+    brand: "Ambi Pur",
+    badge: "Popular Pick",
+    rating: 3.7,
+    amazonLink: "https://amzn.to/4su9Njb"
+  },
+  {
+    id: 4102,
+    category: "Car Perfume",
+    name: "Godrej aer Twist Car Air Freshener – Cool Surf Blue (45 g)",
+    brand: "Godrej aer",
+    badge: "Long Lasting",
+    rating: 3.9,
+    amazonLink: "https://amzn.to/49rOAh8"
+  },
+  {
+    id: 4103,
+    category: "Car Perfume",
+    name: "EM5 Aromatherapy Gel Car Perfume – Sea Salt, Bergamot, Peach & Orange (200 g)",
+    brand: "EM5",
+    badge: "Amazon's Choice",
+    rating: 4.3,
+    amazonLink: "https://amzn.to/3Z2jnfG"
+  },
+  {
+    id: 4104,
+    category: "Car Perfume",
+    name: "Godrej aer O Hanging Car Air Freshener – Assorted Pack of 3",
+    brand: "Godrej aer",
+    badge: "Amazon's Choice",
+    rating: 4.2,
+    amazonLink: "https://amzn.to/3YuYkSV"
+  },
+  {
+    id: 4105,
+    category: "Car Perfume",
+    name: "Involve Your Senses One Musk Organic Car Perfume (40 g)",
+    brand: "Involve Your Senses",
+    badge: "Best Seller",
+    rating: 3.8,
+    amazonLink: "https://amzn.to/3Z6uKDj"
+  }
 ];
