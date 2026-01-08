@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import CategorySection from "./components/CategorySection";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 import { categories, products } from "./data/products";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         />
       </div>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }
