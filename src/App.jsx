@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Hero from "./components/Hero";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import CategorySection from "./components/CategorySection";
 import { products } from "./data/products";
@@ -15,7 +17,8 @@ function App() {
   );
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-50">
+      <Header />
       <Hero />
 
       <Navbar
@@ -30,7 +33,9 @@ function App() {
           products={filteredProducts}
         />
       </div>
-    </>
+
+      <Footer />
+    </div>
   );
 }
 
