@@ -1,6 +1,8 @@
+import logo from "../assets/logo.png";
+
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 text-gray-900 mt-16 border-t border-gray-200">
+    <footer className="bg-gray-900 text-gray-900 mt-16 border-t border-gray-200">
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About Section */}
@@ -8,9 +10,9 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-4">
                
               <img 
-                src="/logo.png" 
+                src={logo}
                 alt="Car-Bliss Logo" 
-                className="h-30 w-auto object-contain"
+                className="h-25 w-auto object-contain"
               />
               <h3 className="text-2xl font-bold">Car-Bliss</h3>
             </div>
