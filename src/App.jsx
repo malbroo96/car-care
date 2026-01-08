@@ -3,44 +3,36 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import CategorySection from "./components/CategorySection";
-import { products } from "./data/products";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
+import { categories, products } from "./data/products";
 
 function App() {
-  const categories = [...new Set(products.map(p => p.category))];
-
-  // default: first category only
+  // Set first category as default
   const [activeCategory, setActiveCategory] = useState(categories[0]);
 
+  // Filter products based on active category
   const filteredProducts = products.filter(
-    p => p.category === activeCategory
+    (p) => p.category === activeCategory
   );
 
   return (
     <>
-      {/* SEO Identity Bar */}
       <Header />
-
-      {/* Hero Section */}
       <Hero />
 
-      {/* Category Navigation */}
       <Navbar
         categories={categories}
         activeCategory={activeCategory}
         setActiveCategory={setActiveCategory}
       />
-
-      {/* Main content */}
       <div className="max-w-6xl mx-auto px-4">
-        <CategorySection
-          title={activeCategory}
-          products={filteredProducts}
-        />
+        <CategorySection title={activeCategory} products={filteredProducts} />
       </div>
 
-      {/* Footer */}
+      {/* Footer should always be LAST */}
       <Footer />
+      <ScrollToTop />
     </>
   );
 }
