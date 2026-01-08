@@ -28,6 +28,8 @@ function App() {
       <div className="max-w-6xl mx-auto px-4">
         <CategorySection title={activeCategory} products={filteredProducts} />
       </div>
+
+      {/* Footer should always be LAST */}
       <Footer />
       <ScrollToTop />
     </div>
