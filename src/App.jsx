@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import CategorySection from "./components/CategorySection";
@@ -17,8 +18,13 @@ function App() {
 
   return (
     <>
+      {/* SEO Identity Bar */}
+      <Header />
+
+      {/* Hero Section */}
       <Hero />
 
+      {/* Category Navigation */}
       <Navbar
         categories={categories}
         activeCategory={activeCategory}
@@ -33,7 +39,7 @@ function App() {
         />
       </div>
 
-      {/* Footer should always be LAST */}
+      {/* Footer */}
       <Footer />
     </>
   );
