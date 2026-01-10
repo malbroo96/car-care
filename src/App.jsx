@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar2";
 import CategorySection from "./components/CategorySection";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
