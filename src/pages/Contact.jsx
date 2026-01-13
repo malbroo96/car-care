@@ -5,7 +5,7 @@ export default function Contact() {
     name: "",
     email: "",
     subject: "",
-    message: ""
+    message: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -13,7 +13,7 @@ export default function Contact() {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -22,7 +22,7 @@ export default function Contact() {
     // In a real app, you would send this data to a server
     console.log("Form submitted:", formData);
     setSubmitted(true);
-    
+
     // Reset form after 3 seconds
     setTimeout(() => {
       setFormData({ name: "", email: "", subject: "", message: "" });
@@ -38,24 +38,32 @@ export default function Contact() {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
           <div className="w-24 h-1 bg-cyan-600 mx-auto mb-4"></div>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Have questions about our products or need recommendations? We'd love to hear from you!
+            Have questions about our products or need recommendations? We'd love
+            to hear from you!
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
           {/* Contact Form */}
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
-            
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              Send us a Message
+            </h2>
+
             {submitted ? (
               <div className="bg-green-50 border border-green-200 text-green-800 px-6 py-4 rounded-lg">
                 <p className="font-semibold">Thank you for your message!</p>
-                <p className="text-sm mt-1">We'll get back to you as soon as possible.</p>
+                <p className="text-sm mt-1">
+                  We'll get back to you as soon as possible.
+                </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Name *
                   </label>
                   <input
@@ -71,7 +79,10 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Email *
                   </label>
                   <input
@@ -87,7 +98,10 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="subject"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Subject *
                   </label>
                   <input
@@ -103,7 +117,10 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Message *
                   </label>
                   <textarea
@@ -131,38 +148,101 @@ export default function Contact() {
           {/* Contact Information */}
           <div className="space-y-6">
             <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h2>
-              
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                Get in Touch
+              </h2>
+
               <div className="space-y-4">
                 <div className="flex items-start">
                   <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    <svg
+                      className="w-6 h-6 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
                     </svg>
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">Email</h3>
-                    <p className="text-gray-600 text-sm">support@car-bliss.com</p>
+                    <p className="text-gray-600 text-sm">
+                      support@car-bliss.com
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
+                    <svg
+                      className="w-6 h-6 text-blue-600"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M7.75 2C4.56 2 2 4.56 2 7.75v8.5C2 19.44 4.56 22 7.75 22h8.5C19.44 22 22 19.44 22 16.25v-8.5C22 4.56 19.44 2 16.25 2h-8.5zm8.5 1.5a4.25 4.25 0 014.25 4.25v8.5a4.25 4.25 0 01-4.25 4.25h-8.5A4.25 4.25 0 013.5 16.25v-8.5A4.25 4.25 0 017.75 3.5h8.5zm-4.25 3a5.25 5.25 0 100 10.5 5.25 5.25 0 000-10.5zm0 1.5a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zm5.38-.88a1.12 1.12 0 100 2.24 1.12 1.12 0 000-2.24z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Instagram</h3>
+                    <a
+                      href="https://www.instagram.com/carbliss_for_cars/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 text-sm hover:text-pink-600 transition"
+                    >
+                      @carbliss_for_cars
+                    </a>
                   </div>
                 </div>
 
                 <div className="flex items-start">
                   <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg
+                      className="w-6 h-6 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">Response Time</h3>
+                    <h3 className="font-semibold text-gray-900">
+                      Response Time
+                    </h3>
                     <p className="text-gray-600 text-sm">Within 24-48 hours</p>
                   </div>
                 </div>
 
                 <div className="flex items-start">
                   <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <svg
+                      className="w-6 h-6 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
                     </svg>
                   </div>
                   <div>
@@ -174,12 +254,16 @@ export default function Contact() {
             </div>
 
             <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">Need Product Help?</h3>
+              <h3 className="font-semibold text-gray-900 mb-2">
+                Need Product Help?
+              </h3>
               <p className="text-gray-700 text-sm mb-4">
-                Looking for product recommendations or have questions about specific items? Feel free to reach out!
+                Looking for product recommendations or have questions about
+                specific items? Feel free to reach out!
               </p>
               <p className="text-gray-700 text-sm">
-                We're here to help you find the perfect car care products for your needs.
+                We're here to help you find the perfect car care products for
+                your needs.
               </p>
             </div>
           </div>
