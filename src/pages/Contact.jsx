@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -32,6 +33,17 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
+      <Helmet>
+        <title>Contact Us - Get in Touch | Car-Bliss</title>
+        <meta
+          name="description"
+          content="Contact Car-Bliss for questions about premium car care products, recommendations, or support. We're here to help with your vehicle detailing needs."
+        />
+        <meta
+          name="keywords"
+          content="contact car care, car detailing support, car products questions, Car-Bliss contact"
+        />
+      </Helmet>
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
@@ -39,6 +51,7 @@ export default function Contact() {
           <div className="w-24 h-1 bg-cyan-600 mx-auto mb-4"></div>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Have questions about our products or need recommendations? We'd love
+           
             to hear from you!
           </p>
         </div>
