@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -23,6 +24,19 @@ function Home() {
 
   return (
     <>
+      <Helmet>
+        <title>
+          Premium Car Care Products | Best Auto Detailing Kits & Supplies
+        </title>
+        <meta
+          name="description"
+          content="Discover top-rated car care products including washing kits, shampoos, microfiber cloths, and detailing tools. Shop now for professional car maintenance solutions."
+        />
+        <meta
+          name="keywords"
+          content="car care, auto detailing, car wash kits, car shampoo, microfiber cloths, car detailing tools, vehicle maintenance, premium car products"
+        />
+      </Helmet>
       <Hero />
       <Navbar
         categories={categories}
