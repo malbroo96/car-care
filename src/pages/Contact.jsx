@@ -51,6 +51,7 @@ export default function Contact() {
           <div className="w-24 h-1 bg-cyan-600 mx-auto mb-4"></div>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Have questions about our products or need recommendations? We'd love
+           
             to hear from you!
           </p>
         </div>
@@ -186,6 +187,28 @@ export default function Contact() {
                     <p className="text-gray-600 text-sm">
                       support@car-bliss.com
                     </p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
+                    <svg
+                      className="w-6 h-6 text-blue-600"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M7.75 2C4.56 2 2 4.56 2 7.75v8.5C2 19.44 4.56 22 7.75 22h8.5C19.44 22 22 19.44 22 16.25v-8.5C22 4.56 19.44 2 16.25 2h-8.5zm8.5 1.5a4.25 4.25 0 014.25 4.25v8.5a4.25 4.25 0 01-4.25 4.25h-8.5A4.25 4.25 0 013.5 16.25v-8.5A4.25 4.25 0 017.75 3.5h8.5zm-4.25 3a5.25 5.25 0 100 10.5 5.25 5.25 0 000-10.5zm0 1.5a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zm5.38-.88a1.12 1.12 0 100 2.24 1.12 1.12 0 000-2.24z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Instagram</h3>
+                    <a
+                      href="https://www.instagram.com/carbliss_for_cars/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 text-sm hover:text-pink-600 transition"
+                    >
+                      @carbliss_for_cars
+                    </a>
                   </div>
                 </div>
 
