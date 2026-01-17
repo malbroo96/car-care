@@ -56,7 +56,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-[500px] overflow-hidden bg-black">
+    <section className="relative h-125 overflow-hidden bg-black">
       {slides.map((slide, index) => (
         <div
           key={index}
@@ -67,7 +67,7 @@ export default function Hero() {
           {/* Background */}
           <div
             className="absolute inset-0 bg-cover bg-center z-0"
-            style={{ backgroundImage: `url("${slide.image}")` }}
+            style={{ backgroundImage: `url(${slide.image})` }}
           >
             <div className="absolute inset-0 bg-black/40" />
           </div>
