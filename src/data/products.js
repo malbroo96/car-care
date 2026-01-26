@@ -18,7 +18,7 @@ export const products = [
     isCombo: true,
     badge: "Amazon's Choice",
     rating: 4.3,
-    amazonLink: "https://amzn.to/4qy7VV0"
+    amazonLink: "https://amzn.to/4jZtRGh"
   },
   {
     id: 502,
@@ -28,7 +28,7 @@ export const products = [
     isCombo: true,
     badge: "Interior Care",
     rating: 4.3,
-    amazonLink: "https://amzn.to/4qy8pKO"
+    amazonLink: "https://amzn.to/3Zw1aaz"
   },
   {
     id: 503,
@@ -38,7 +38,7 @@ export const products = [
     isCombo: true,
     badge: "Best Seller",
     rating: 4.3,
-    amazonLink: "https://amzn.to/3Yopqev"
+    amazonLink: "https://amzn.to/3Lzbr2J"
   },
   {
     id: 505,
@@ -48,7 +48,7 @@ export const products = [
     isCombo: true,
     badge: "Budget Pick",
     rating: 4.3,
-    amazonLink: "https://amzn.to/4q9aPjd"
+    amazonLink: "https://amzn.to/49VaNnY"
   },
 
   // 🚗 Car Shampoo & Cleaners
@@ -59,7 +59,7 @@ export const products = [
     brand: "3M",
     badge: "Water Saving",
     rating: 4.0,
-    amazonLink: "https://amzn.to/4qFNoh5"
+    amazonLink: "https://amzn.to/3M7Ipat"
   },
   {
     id: 602,
@@ -68,7 +68,7 @@ export const products = [
     brand: "Waxpol",
     badge: "High Foam",
     rating: 4.0,
-    amazonLink: "https://amzn.to/4aMLFSI"
+    amazonLink: "https://amzn.to/49UpEix"
   },
   {
     id: 603,
@@ -77,7 +77,7 @@ export const products = [
     brand: "Wavex",
     badge: "Amazon's Choice",
     rating: 4.3,
-    amazonLink: "https://amzn.to/4prPnoq"
+    amazonLink: "https://amzn.to/3NAtaY9"
   },
   {
     id: 604,
@@ -86,7 +86,7 @@ export const products = [
     brand: "ShineXPro",
     badge: "Best Seller",
     rating: 4.3,
-    amazonLink: "https://amzn.to/3Luu5Zk"
+    amazonLink: "https://amzn.to/4t0zKY1"
   },
   {
     id: 605,
@@ -95,7 +95,7 @@ export const products = [
     brand: "GoMechanic",
     badge: "Eco Friendly",
     rating: 4.4,
-    amazonLink: "https://amzn.to/4qeMmJi"
+    amazonLink: "https://amzn.to/49HnEvq"
   },
 
   // 💦 Pressure Washers & Foam Cannons
@@ -106,7 +106,7 @@ export const products = [
     brand: "Dylect",
     badge: "Amazon's Choice",
     rating: 4.2,
-    amazonLink: "https://amzn.to/49qHhX0"
+    amazonLink: "https://amzn.to/45tqwcJ"
   },
   {
     id: 702,
@@ -115,7 +115,7 @@ export const products = [
     brand: "Asian Paints",
     badge: "Budget Pick",
     rating: 3.8,
-    amazonLink: "https://amzn.to/49tRPEV"
+    amazonLink: "https://amzn.to/49WYoQu"
   },
   {
     id: 703,
@@ -124,7 +124,7 @@ export const products = [
     brand: "Dylect",
     badge: "High Performance",
     rating: 4.2,
-    amazonLink: "https://amzn.to/3N758Ui"
+    amazonLink: "https://amzn.to/4rdK9xV"
   },
   {
     id: 704,
@@ -133,7 +133,7 @@ export const products = [
     brand: "AGARO",
     badge: "#1 Best Seller",
     rating: 4.0,
-    amazonLink: "https://amzn.to/4pwsZdF"
+    amazonLink: "https://amzn.to/3LCgGyC"
   },
   {
     id: 705,
@@ -142,7 +142,7 @@ export const products = [
     brand: "AGARO",
     badge: "Amazon's Choice",
     rating: 4.2,
-    amazonLink: "https://amzn.to/49jVd5e"
+    amazonLink: "https://amzn.to/4bTnd2l"
   },
 
   // 🧽 Microfiber Cloths & Towels
@@ -153,7 +153,7 @@ export const products = [
     brand: "SOFTSPUN",
     badge: "Amazon's Choice",
     rating: 4.2,
-    amazonLink: "https://amzn.to/4pv0k8S"
+    amazonLink: "https://amzn.to/4qCgRZL"
   },
   {
     id: 802,
@@ -162,7 +162,7 @@ export const products = [
     brand: "SOFTSPUN",
     badge: "Best Seller",
     rating: 4.3,
-    amazonLink: "https://amzn.to/45uZpxQ"
+    amazonLink: "https://amzn.to/49GmtfJ"
   },
   {
     id: 803,
@@ -171,7 +171,7 @@ export const products = [
     brand: "VARNIVA ESSENTIALS",
     badge: "Premium Pick",
     rating: 5.0,
-    amazonLink: "https://amzn.to/3YuXxkV"
+    amazonLink: "https://amzn.to/49QIZRL"
   },
   {
     id: 804,
@@ -180,7 +180,7 @@ export const products = [
     brand: "Generic",
     badge: "Budget Pick",
     rating: 3.5,
-    amazonLink: "https://amzn.to/3LodbeW"
+    amazonLink: "https://amzn.to/4a0fQ6N"
   },
 
   // 🪑 Interior Cleaning
@@ -191,7 +191,7 @@ export const products = [
     brand: "3M",
     badge: "Amazon's Choice",
     rating: 4.2,
-    amazonLink: "https://amzn.to/3NacwhJ"
+    amazonLink: "https://amzn.to/4q2zGV9"
   },
   {
     id: 2102,
@@ -200,7 +200,7 @@ export const products = [
     brand: "ShineXPro",
     badge: "Amazon's Choice",
     rating: 4.0,
-    amazonLink: "https://amzn.to/3Lxu3zW"
+    amazonLink: "https://amzn.to/4jYDBAT"
   },
   {
     id: 2103,
@@ -209,7 +209,7 @@ export const products = [
     brand: "M95",
     badge: "Amazon's Choice",
     rating: 4.5,
-    amazonLink: "https://amzn.to/44Wi1H0"
+    amazonLink: "https://amzn.to/4k5ao7s"
   },
   {
     id: 2104,
@@ -218,7 +218,7 @@ export const products = [
     brand: "WaveX",
     badge: "Amazon's Choice",
     rating: 4.3,
-    amazonLink: "https://amzn.to/450LhfB"
+    amazonLink: "https://amzn.to/3M5Aaf2"
   },
   {
     id: 2105,
@@ -227,7 +227,7 @@ export const products = [
     brand: "3M",
     badge: "#1 Best Seller",
     rating: 4.1,
-    amazonLink: "https://amzn.to/450Lhw7"
+    amazonLink: "https://amzn.to/3NEKBH1"
   },
 
   // ✨ Polish, Wax & Protection
@@ -238,7 +238,7 @@ export const products = [
     brand: "ShineXPro",
     badge: "Graphene Coating",
     rating: 3.8,
-    amazonLink: "https://amzn.to/3N8aUFc"
+    amazonLink: "https://amzn.to/3LL8BHV"
   },
   {
     id: 3102,
@@ -247,7 +247,7 @@ export const products = [
     brand: "WaveX",
     badge: "Amazon's Choice",
     rating: 4.1,
-    amazonLink: "https://amzn.to/4pv0Wvc"
+    amazonLink: "https://amzn.to/49PmaPT"
   },
   {
     id: 3103,
@@ -256,7 +256,7 @@ export const products = [
     brand: "3M",
     badge: "Best Seller",
     rating: 4.0,
-    amazonLink: "https://amzn.to/4po2MOb"
+    amazonLink: "https://amzn.to/4k213Nt"
   },
   {
     id: 3104,
@@ -265,7 +265,7 @@ export const products = [
     brand: "3M",
     badge: "Amazon's Choice",
     rating: 4.2,
-    amazonLink: "https://amzn.to/4pxzih5"
+    amazonLink: "https://amzn.to/4k9vO39"
   },
   {
     id: 3105,
@@ -274,7 +274,7 @@ export const products = [
     brand: "ShineXPro",
     badge: "Ceramic Coating",
     rating: 3.8,
-    amazonLink: "https://amzn.to/3LexaN7"
+    amazonLink: "https://amzn.to/49Pme25"
   },
 
   // 🌸 Car Perfume
@@ -285,7 +285,7 @@ export const products = [
     brand: "Ambi Pur",
     badge: "Popular Pick",
     rating: 3.7,
-    amazonLink: "https://amzn.to/4su9Njb"
+    amazonLink: "https://amzn.to/4af7RnG"
   },
   {
     id: 4102,
@@ -294,7 +294,7 @@ export const products = [
     brand: "Godrej aer",
     badge: "Long Lasting",
     rating: 3.9,
-    amazonLink: "https://amzn.to/49rOAh8"
+    amazonLink: "https://amzn.to/4k01asP"
   },
   {
     id: 4103,
@@ -303,7 +303,7 @@ export const products = [
     brand: "EM5",
     badge: "Amazon's Choice",
     rating: 4.3,
-    amazonLink: "https://amzn.to/3Z2jnfG"
+    amazonLink: "https://amzn.to/4a4cGPE"
   },
   {
     id: 4104,
@@ -312,7 +312,7 @@ export const products = [
     brand: "Godrej aer",
     badge: "Amazon's Choice",
     rating: 4.2,
-    amazonLink: "https://amzn.to/3YuYkSV"
+    amazonLink: "https://amzn.to/45xlk7I"
   },
   {
     id: 4105,
@@ -321,6 +321,6 @@ export const products = [
     brand: "Involve Your Senses",
     badge: "Best Seller",
     rating: 3.8,
-    amazonLink: "https://amzn.to/3Z6uKDj"
+    amazonLink: "https://amzn.to/4ajg8WL"
   }
 ];
