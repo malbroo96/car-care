@@ -43,13 +43,28 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
-                <button onClick={() => go("/about")} className="cursor-pointer hover:opacity-80 transition-opacity">About Us</button>
+                <button
+                  onClick={() => go("/about")}
+                  className="cursor-pointer hover:opacity-80 transition-opacity"
+                >
+                  About Us
+                </button>
               </li>
               <li>
-                <button onClick={() => go("/contact")} className="cursor-pointer hover:opacity-80 transition-opacity">Contact</button>
+                <button
+                  onClick={() => go("/contact")}
+                  className="cursor-pointer hover:opacity-80 transition-opacity"
+                >
+                  Contact
+                </button>
               </li>
               <li>
-                <button onClick={() => go("/privacy")} className="cursor-pointer hover:opacity-80 transition-opacity">Privacy Policy</button>
+                <button
+                  onClick={() => go("/privacy")}
+                  className="cursor-pointer hover:opacity-80 transition-opacity"
+                >
+                  Privacy Policy
+                </button>
               </li>
             </ul>
           </div>
@@ -82,9 +97,10 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="border-t border-gray-700 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-            <p>© 2026 Car-Bliss. All rights reserved.</p>
+            <p>(c) 2026 Car-Bliss. All rights reserved.</p>
             <p className="text-center md:text-right">
-              As an Amazon Associate, we earn from qualifying purchases.
+              Affiliate Disclosure: As an Amazon Associate, we earn from
+              qualifying purchases.
             </p>
           </div>
         </div>
