@@ -1,4 +1,5 @@
-﻿export const categories = [
+export const categories = [
+  "Best Sellers",
   "Combos & Bundles",
   "Car Shampoo & Cleaners",
   "Pressure Washers & Foam Cannons",
@@ -9,7 +10,7 @@
 ];
 
 export const products = [
-  // ðŸ”¥ Combos & Bundles (HIGH CONVERSION)
+  // 🔥 Combos & Bundles (HIGH CONVERSION)
     {
     id: 501,
     category: "Combos & Bundles",
@@ -45,7 +46,7 @@ export const products = [
   {
     id: 505,
     category: "Combos & Bundles",
-    name: "SOFTSPUN Essentials Complete Car Care Kit (Interior & Exterior Cleaning â€“ 5 Piece)",
+    name: "SOFTSPUN Essentials Complete Car Care Kit (Interior & Exterior Cleaning – 5 Piece)",
     brand: "SOFTSPUN",
     isCombo: true,
     badge: "Budget Pick",
@@ -53,7 +54,7 @@ export const products = [
     amazonLink: "https://amzn.to/49VaNnY",
     image: "https://m.media-amazon.com/images/I/41ViNhKsx9L._SX300_SY300_QL70_FMwebp_.jpg"},
 
-  // ðŸš— Car Shampoo & Cleaners
+  // 🚗 Car Shampoo & Cleaners
     {
     id: 601,
     category: "Car Shampoo & Cleaners",
@@ -102,7 +103,7 @@ export const products = [
     amazonLink: "https://amzn.to/49HnEvq",
     image: "https://m.media-amazon.com/images/I/51QtlDCkm8L._SX679_.jpg"},
 
-  // ðŸ’¦ Pressure Washers & Foam Cannons
+  // 💦 Pressure Washers & Foam Cannons
   {
     id: 701,
     category: "Pressure Washers & Foam Cannons",
@@ -151,11 +152,11 @@ export const products = [
     image: "https://m.media-amazon.com/images/I/71NyZcywWRL._SX425_.jpg"
   },
 
-  // ðŸ§½ Microfiber Cloths & Towels
+  // 🧽 Microfiber Cloths & Towels
    {
     id: 801,
     category: "Microfiber Cloths & Towels",
-    name: "SOFTSPUN Microfiber Chenille Wash Mitt â€“ 1700 GSM (Single)",
+    name: "SOFTSPUN Microfiber Chenille Wash Mitt – 1700 GSM (Single)",
     brand: "SOFTSPUN",
     badge: "Amazon's Choice",
     rating: 4.2,
@@ -164,7 +165,7 @@ export const products = [
   {
     id: 802,
     category: "Microfiber Cloths & Towels",
-    name: "SOFTSPUN Microfiber Chenille Wash Mitt â€“ 1700 GSM (2 Piece Set)",
+    name: "SOFTSPUN Microfiber Chenille Wash Mitt – 1700 GSM (2 Piece Set)",
     brand: "SOFTSPUN",
     badge: "Best Seller",
     rating: 4.3,
@@ -190,11 +191,11 @@ export const products = [
     amazonLink: "https://amzn.to/4a0fQ6N",
     image: "https://m.media-amazon.com/images/I/71NUez2LibL._SY879_.jpg"},
 
-  // ðŸª‘ Interior Cleaning
+  // 🪑 Interior Cleaning
   {
     id: 2101,
     category: "Interior Cleaning",
-    name: "3M Dashboard Dresser (250 ml) â€“ Non Greasy Interior Shine",
+    name: "3M Dashboard Dresser (250 ml) – Non Greasy Interior Shine",
     brand: "3M",
     badge: "Amazon's Choice",
     rating: 4.2,
@@ -239,11 +240,11 @@ export const products = [
     amazonLink: "https://amzn.to/3NEKBH1",
     image: "https://m.media-amazon.com/images/I/613ERZXOunL._SX425_.jpg"},
 
-  // âœ¨ Polish, Wax & Protection
+  // ✨ Polish, Wax & Protection
   {
     id: 3101,
     category: "Polish, Wax & Protection",
-    name: "ShineXPro Graphene Coating Spray (250 ml) â€“ Extreme Gloss & UV Protection",
+    name: "ShineXPro Graphene Coating Spray (250 ml) – Extreme Gloss & UV Protection",
     brand: "ShineXPro",
     badge: "Graphene Coating",
     rating: 3.8,
@@ -252,7 +253,7 @@ export const products = [
   {
     id: 3102,
     category: "Polish, Wax & Protection",
-    name: "WaveX Carnauba Wax Car Polish Cream (1 L) â€“ Deep Wet Shine",
+    name: "WaveX Carnauba Wax Car Polish Cream (1 L) – Deep Wet Shine",
     brand: "WaveX",
     badge: "Amazon's Choice",
     rating: 4.1,
@@ -261,7 +262,7 @@ export const products = [
   {
     id: 3103,
     category: "Polish, Wax & Protection",
-    name: "3M Premium Liquid Wax (200 ml) â€“ UV Protection & Water Repellent",
+    name: "3M Premium Liquid Wax (200 ml) – UV Protection & Water Repellent",
     brand: "3M",
     badge: "Best Seller",
     rating: 4.0,
@@ -271,7 +272,7 @@ export const products = [
   {
     id: 3104,
     category: "Polish, Wax & Protection",
-    name: "3M Specialty Cream Wax (220 g) â€“ High Gloss & Streak Free",
+    name: "3M Specialty Cream Wax (220 g) – High Gloss & Streak Free",
     brand: "3M",
     badge: "Amazon's Choice",
     rating: 4.2,
@@ -281,18 +282,18 @@ export const products = [
   {
     id: 3105,
     category: "Polish, Wax & Protection",
-    name: "ShineXPro DIY Ceramic Coating Spray (250 ml) â€“ Long Lasting Protection",
+    name: "ShineXPro DIY Ceramic Coating Spray (250 ml) – Long Lasting Protection",
     brand: "ShineXPro",
     badge: "Ceramic Coating",
     rating: 3.8,
     amazonLink: "https://amzn.to/49Pme25",
     image: "https://m.media-amazon.com/images/I/71Nt42qS34L._SX425_.jpg"},
 
-  // ðŸŒ¸ Car Perfume
+  // 🌸 Car Perfume
    {
     id: 4101,
     category: "Car Perfume",
-    name: "Ambi Pur Car Freshener Gel â€“ Relaxing Lavender (75 g)",
+    name: "Ambi Pur Car Freshener Gel – Relaxing Lavender (75 g)",
     brand: "Ambi Pur",
     badge: "Popular Pick",
     rating: 3.7,
@@ -301,7 +302,7 @@ export const products = [
   {
     id: 4102,
     category: "Car Perfume",
-    name: "Godrej aer Twist Car Air Freshener â€“ Cool Surf Blue (45 g)",
+    name: "Godrej aer Twist Car Air Freshener – Cool Surf Blue (45 g)",
     brand: "Godrej aer",
     badge: "Long Lasting",
     rating: 3.9,
@@ -310,7 +311,7 @@ export const products = [
   {
     id: 4103,
     category: "Car Perfume",
-    name: "EM5 Aromatherapy Gel Car Perfume â€“ Sea Salt, Bergamot, Peach & Orange (200 g)",
+    name: "EM5 Aromatherapy Gel Car Perfume – Sea Salt, Bergamot, Peach & Orange (200 g)",
     brand: "EM5",
     badge: "Amazon's Choice",
     rating: 4.3,
@@ -319,9 +320,9 @@ export const products = [
   {
     id: 4104,
     category: "Car Perfume",
-    name: "Godrej aer O Hanging Car Air Freshener â€“ Assorted Pack of 3",
+    name: "Godrej aer O Hanging Car Air Freshener – Assorted Pack of 3",
     brand: "Godrej aer",
-    badge: "Amazon's Choice",
+    badge: "Best Seller",
     rating: 4.2,
     amazonLink: "https://amzn.to/45xlk7I",
     image: "https://m.media-amazon.com/images/I/71J1Pf6Qq9L._SX425_.jpg"
@@ -331,12 +332,15 @@ export const products = [
     category: "Car Perfume",
     name: "Involve Your Senses One Musk Organic Car Perfume (40 g)",
     brand: "Involve Your Senses",
-    badge: "Best Seller",
+    badge: "Popular Pick",
     rating: 3.8,
     amazonLink: "https://amzn.to/4ajg8WL",
     image: "https://m.media-amazon.com/images/I/41n0ALyjZYL._SX425_.jpg"
   }
 ];
+
+
+
 
 
 

@@ -3,6 +3,7 @@ export default function Navbar({
   activeCategory,
   setActiveCategory
 }) {
+  const BEST_SELLERS_LABEL = "Best Sellers";
 
   return (
     <nav className="sticky top-0 bg-white z-50 border-b">
@@ -13,23 +14,34 @@ export default function Navbar({
             grid-cols-2
             sm:grid-cols-3
             md:grid-cols-4
-            lg:grid-cols-7
+            lg:grid-cols-8
           "
         >
-          {categories.map(category => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`py-2 text-sm rounded-full border transition text-center
-                ${
-                  activeCategory === category
-                    ? "bg-black text-white"
-                    : "bg-white text-black"
+          {categories.map((category) => {
+            const isActive = activeCategory === category;
+            const isBestSellers = category === BEST_SELLERS_LABEL;
+
+            const baseClasses =
+              "py-2 text-sm rounded-full border transition text-center font-medium";
+            const defaultClasses = isActive
+              ? "bg-black text-white border-black"
+              : "bg-white text-black border-gray-300";
+            const bestSellerClasses = isActive
+              ? "bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-black border-amber-500 shadow-md shadow-amber-200"
+              : "bg-gradient-to-r from-amber-100 via-yellow-100 to-amber-200 text-amber-900 border-amber-300 hover:from-amber-200 hover:to-amber-300";
+
+            return (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`${baseClasses} ${
+                  isBestSellers ? bestSellerClasses : defaultClasses
                 }`}
-            >
-              {category}
-            </button>
-          ))}
+              >
+                {category}
+              </button>
+            );
+          })}
         </div>
       </div>
     </nav>
