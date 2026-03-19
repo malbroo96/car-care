@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { Helmet } from "react-helmet";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -10,6 +9,8 @@ import TrustSection from "./components/TrustSection";
 import CarShampooCalculator from "./components/CarShampooCalculator";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import Seo from "./components/Seo";
+import FaqSection from "./components/FaqSection";
 
 import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
@@ -17,9 +18,20 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import GuideWashWithoutSwirlMarks from "./pages/GuideWashWithoutSwirlMarks";
 import GuideInteriorCleaning from "./pages/GuideInteriorCleaning";
 import GuideWaxVsCeramicSpray from "./pages/GuideWaxVsCeramicSpray";
+import HowWeReview from "./pages/HowWeReview";
 
 import { categories, products } from "./data/products";
 import { useEffect, useMemo, useState } from "react";
+import {
+  buildFaqSchema,
+  buildOrganizationSchema,
+  buildProductListSchema,
+  siteFaqs,
+} from "./data/seo";
+
+function toSectionId(value) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
 
 const guideRoutes = [
   {
@@ -51,6 +63,36 @@ function Home() {
         return product.category === activeCategory;
       }),
     [activeCategory, isBestSellersCategory]
+  );
+  const homepageStructuredData = useMemo(
+    () => [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Car-Bliss",
+        url: "https://www.car-bliss.com/",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: "https://www.car-bliss.com/?q={search_term_string}",
+          "query-input": "required name=search_term_string",
+        },
+      },
+      buildProductListSchema(
+        products,
+        "Car-Bliss Car Care Product Collections",
+        "https://www.car-bliss.com/#products"
+      ),
+      buildFaqSchema(siteFaqs),
+      buildOrganizationSchema(),
+    ],
+    []
+  );
+  const categoryHashMap = useMemo(
+    () =>
+      Object.fromEntries(
+        categories.map((category) => [`#${toSectionId(category)}`, category])
+      ),
+    []
   );
 
   useEffect(() => {
@@ -85,21 +127,27 @@ function Home() {
     return () => observer.disconnect();
   }, [activeCategory]);
 
+  useEffect(() => {
+    const applyHashCategory = () => {
+      const categoryFromHash = categoryHashMap[window.location.hash];
+      if (categoryFromHash) {
+        setActiveCategory(categoryFromHash);
+      }
+    };
+
+    applyHashCategory();
+    window.addEventListener("hashchange", applyHashCategory);
+
+    return () => window.removeEventListener("hashchange", applyHashCategory);
+  }, [categoryHashMap]);
+
   return (
     <>
-      <Helmet>
-        <title>
-          Premium Car Care Products | Best Auto Detailing Kits & Supplies
-        </title>
-        <meta
-          name="description"
-          content="Discover top-rated car care products including washing kits, shampoos, microfiber cloths, and detailing tools. Shop now for professional car maintenance solutions."
-        />
-        <meta
-          name="keywords"
-          content="car care, auto detailing, car wash kits, car shampoo, microfiber cloths, car detailing tools, vehicle maintenance, premium car products"
-        />
-      </Helmet>
+      <Seo
+        title="Premium Car Care Products | Best Auto Detailing Kits & Supplies"
+        path="/"
+        structuredData={homepageStructuredData}
+      />
       <Hero />
       <div id="best-sellers">
         <Navbar
@@ -114,6 +162,7 @@ function Home() {
         <CategorySection title={activeCategory} products={filteredProducts} />
       </div>
       <TrustSection />
+      <FaqSection faqs={siteFaqs} />
     </>
   );
 }
@@ -128,6 +177,7 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/how-we-review" element={<HowWeReview />} />
         {guideRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />
         ))}

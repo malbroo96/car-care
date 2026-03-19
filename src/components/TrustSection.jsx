@@ -38,6 +38,18 @@ export default function TrustSection() {
           </article>
         ))}
       </div>
+
+      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+        <h3 className="text-xl font-bold text-gray-900 mb-3">
+          How We Build Recommendations
+        </h3>
+        <p className="text-gray-700 leading-7">
+          Car-Bliss publishes practical buying guides and affiliate product
+          recommendations for common car care categories. We focus on category
+          fit, everyday usefulness, and clearly explained comparisons so readers
+          can make faster decisions.
+        </p>
+      </div>
     </section>
   );
 }

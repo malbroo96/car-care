@@ -1,19 +1,29 @@
-import { Helmet } from "react-helmet";
+import Seo from "../components/Seo";
+import { buildBreadcrumbSchema } from "../data/seo";
 
 export default function AboutUs() {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
-      <Helmet>
-        <title>About Us - Premium Car Care Products | Car-Bliss</title>
-        <meta
-          name="description"
-          content="Learn about Car-Bliss, your trusted source for premium car care products and detailing supplies. Discover our mission and commitment to quality."
-        />
-        <meta
-          name="keywords"
-          content="about car care, car detailing products, premium car supplies, Car-Bliss mission"
-        />
-      </Helmet>
+      <Seo
+        title="About Us - Premium Car Care Products"
+        path="/about"
+        description="Learn about Car-Bliss, your trusted source for premium car care products and detailing supplies. Discover our mission and commitment to quality."
+        keywords="about car care, car detailing products, premium car supplies, Car-Bliss mission"
+        structuredData={[
+          {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            name: "About Car-Bliss",
+            url: "https://www.car-bliss.com/about",
+            description:
+              "Learn about Car-Bliss, your trusted source for premium car care products and detailing supplies.",
+          },
+          buildBreadcrumbSchema([
+            { name: "Home", url: "https://www.car-bliss.com/" },
+            { name: "About", url: "https://www.car-bliss.com/about" },
+          ]),
+        ]}
+      />
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">

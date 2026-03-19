@@ -1,0 +1,30 @@
+# Car-Bliss
+
+> Car-Bliss publishes car care buying guides, maintenance explainers, and curated affiliate product recommendations.
+
+- Website: https://www.car-bliss.com/
+- About: https://www.car-bliss.com/about
+- Contact: https://www.car-bliss.com/contact
+- Editorial policy: https://www.car-bliss.com/how-we-review
+- Privacy policy: https://www.car-bliss.com/privacy
+
+## What this site covers
+
+- Car wash routines
+- Car shampoo and cleaner recommendations
+- Microfiber cloth and towel recommendations
+- Interior cleaning guidance
+- Wax, polish, and ceramic spray comparisons
+- Car perfume and cabin freshness products
+
+## Key guides
+
+- How to wash your car without swirl marks: https://www.car-bliss.com/guides/wash-without-swirl-marks
+- Interior car cleaning guide for a fresh cabin: https://www.car-bliss.com/guides/interior-cleaning-guide
+- Wax vs ceramic spray for daily drivers: https://www.car-bliss.com/guides/wax-vs-ceramic-spray
+
+## Editorial notes
+
+- Car-Bliss uses affiliate links and may earn commissions from qualifying purchases.
+- Guides are written for practical, everyday car care and product comparison.
+- Contact: support@car-bliss.com

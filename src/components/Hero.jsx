@@ -67,10 +67,15 @@ export default function Hero() {
             index === currentSlide ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div
-            className="absolute inset-0 bg-cover bg-center z-0"
-            style={{ backgroundImage: `url(${slide.image})` }}
-          >
+          <div className="absolute inset-0 z-0">
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className="h-full w-full object-cover"
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "low"}
+              decoding="async"
+            />
             <div className="absolute inset-0 bg-black/40" />
           </div>
 

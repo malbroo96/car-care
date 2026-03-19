@@ -70,9 +70,10 @@ export default function ProductCard({ product, revealIndex = 0 }) {
       {product.image && (
         <img
           src={product.image}
-          alt={product.name}
+          alt={`${product.name} by ${product.brand}`}
           className="rounded-xl mb-3 w-full object-cover"
           loading="lazy"
+          decoding="async"
         />
       )}
 

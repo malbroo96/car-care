@@ -66,6 +66,14 @@ export default function Footer() {
                   Privacy Policy
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={() => go("/how-we-review")}
+                  className="cursor-pointer hover:opacity-80 transition-opacity"
+                >
+                  How We Review
+                </button>
+              </li>
             </ul>
           </div>
 

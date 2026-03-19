@@ -1,19 +1,29 @@
-import { Helmet } from "react-helmet";
+import Seo from "../components/Seo";
+import { buildBreadcrumbSchema } from "../data/seo";
 
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
-      <Helmet>
-        <title>Privacy Policy - Data Protection | Car-Bliss</title>
-        <meta
-          name="description"
-          content="Read Car-Bliss's privacy policy to understand how we collect, use, and protect your personal information. Your privacy is important to us."
-        />
-        <meta
-          name="keywords"
-          content="privacy policy, data protection, personal information, Car-Bliss privacy"
-        />
-      </Helmet>
+      <Seo
+        title="Privacy Policy - Data Protection"
+        path="/privacy"
+        description="Read Car-Bliss's privacy policy to understand how we collect, use, and protect your personal information. Your privacy is important to us."
+        keywords="privacy policy, data protection, personal information, Car-Bliss privacy"
+        structuredData={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Car-Bliss Privacy Policy",
+            url: "https://www.car-bliss.com/privacy",
+            description:
+              "Read Car-Bliss's privacy policy to understand how we collect, use, and protect your personal information.",
+          },
+          buildBreadcrumbSchema([
+            { name: "Home", url: "https://www.car-bliss.com/" },
+            { name: "Privacy Policy", url: "https://www.car-bliss.com/privacy" },
+          ]),
+        ]}
+      />
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
