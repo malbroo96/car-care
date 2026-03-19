@@ -1,5 +1,3 @@
-import { productAsins } from "./productAsins";
-
 export const categories = [
   "Best Sellers",
   "Combos & Bundles",
@@ -340,11 +338,6 @@ export const products = [
     image: "https://m.media-amazon.com/images/I/41n0ALyjZYL._SX425_.jpg"
   }
 ];
-
-export const productsWithAsins = products.map((product) => ({
-  ...product,
-  asin: productAsins[product.id] || product.asin || "",
-}));
 
 
 
