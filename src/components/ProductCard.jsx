@@ -55,6 +55,11 @@ export default function ProductCard({ product, revealIndex = 0 }) {
   const emptyStars = "\u2605".repeat(MAX_STARS - starCount);
   const featureList = getFeatureList(product);
   const revealDelay = `${(revealIndex % 6) * 60}ms`;
+  const livePrice = product.livePrice;
+  const displayPrice =
+    livePrice?.displayAmount ||
+    (typeof product.price === "string" && product.price.trim() ? product.price : "");
+  const hasLivePrice = Boolean(livePrice?.displayAmount);
 
   return (
     <div
@@ -78,7 +83,19 @@ export default function ProductCard({ product, revealIndex = 0 }) {
       )}
 
       <h3 className="font-semibold text-lg">{product.name}</h3>
-      <p className="text-gray-600">{product.price || product.brand}</p>
+      <div className="mt-1">
+        {displayPrice ? (
+          <p className="text-gray-900 font-semibold">{displayPrice}</p>
+        ) : null}
+        <p className="text-gray-600 text-sm">
+          {displayPrice ? product.brand : product.price || product.brand}
+        </p>
+        {hasLivePrice ? (
+          <p className="text-xs text-emerald-700 mt-1">
+            Live Amazon price
+          </p>
+        ) : null}
+      </div>
 
       <div
         className="mt-2 text-amber-500 tracking-wide text-sm"

@@ -6,7 +6,7 @@ function toSectionId(title) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
-export default function CategorySection({ title, products }) {
+export default function CategorySection({ title, products, priceState }) {
   const description = categoryDescriptions[title];
   const guideLink = categoryGuideLinks[title];
 
@@ -31,6 +31,12 @@ export default function CategorySection({ title, products }) {
           </Link>
         ) : null}
       </div>
+
+      {priceState?.error ? (
+        <p className="text-sm text-amber-700 mb-4">
+          Live Amazon pricing is temporarily unavailable. Product links still open on Amazon for the latest price.
+        </p>
+      ) : null}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {products.map((product, index) => (

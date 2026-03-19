@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import Seo from "./components/Seo";
 import FaqSection from "./components/FaqSection";
+import useAmazonPrices from "./hooks/useAmazonPrices";
 
 import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
@@ -20,7 +21,7 @@ import GuideInteriorCleaning from "./pages/GuideInteriorCleaning";
 import GuideWaxVsCeramicSpray from "./pages/GuideWaxVsCeramicSpray";
 import HowWeReview from "./pages/HowWeReview";
 
-import { categories, products } from "./data/products";
+import { categories, products, productsWithAsins } from "./data/products";
 import { useEffect, useMemo, useState } from "react";
 import {
   buildFaqSchema,
@@ -55,7 +56,7 @@ function Home() {
 
   const filteredProducts = useMemo(
     () =>
-      products.filter((product) => {
+      productsWithAsins.filter((product) => {
         if (isBestSellersCategory) {
           return (product.badge || "").toLowerCase().includes("best seller");
         }
@@ -86,6 +87,16 @@ function Home() {
       buildOrganizationSchema(),
     ],
     []
+  );
+  const { pricesById, isLoading: isLoadingPrices, error: priceError } =
+    useAmazonPrices(filteredProducts);
+  const productsWithLivePrices = useMemo(
+    () =>
+      filteredProducts.map((product) => ({
+        ...product,
+        livePrice: pricesById[product.id],
+      })),
+    [filteredProducts, pricesById]
   );
   const categoryHashMap = useMemo(
     () =>
@@ -159,7 +170,11 @@ function Home() {
       {showShampooCalculator && <CarShampooCalculator />}
       <BlogSection />
       <div id="products" className="max-w-6xl mx-auto px-4">
-        <CategorySection title={activeCategory} products={filteredProducts} />
+        <CategorySection
+          title={activeCategory}
+          products={productsWithLivePrices}
+          priceState={{ isLoading: isLoadingPrices, error: priceError }}
+        />
       </div>
       <TrustSection />
       <FaqSection faqs={siteFaqs} />
