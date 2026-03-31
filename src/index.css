@@ -1,5 +1,42 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --app-bg: #f8fafc;
+  --app-fg: #0f172a;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  --ring-focus: #38bdf8;
+}
+
+:root {
+  --app-bg: #f8fafc;
+  --app-fg: #0f172a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: rgb(125 211 252 / 0.45);
+}
+
 .reveal-scale {
   opacity: 0;
   transform: scale(0.95);
@@ -22,4 +59,14 @@
     transform: none;
     transition: none;
   }
+}
+
+/* Horizontal scroll regions (category pills, carousels) */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

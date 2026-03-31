@@ -10,105 +10,96 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 text-white mt-16 border-t border-gray-700">
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* About Section */}
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              {/* Clickable Logo */}
+    <footer className="mt-auto border-t border-slate-800 bg-slate-950 text-white">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-5">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          <div className="lg:col-span-2">
+            <div className="mb-4 flex items-center gap-2">
               <button
+                type="button"
                 onClick={() => go("/")}
-                className="cursor-pointer hover:opacity-80 transition-opacity"
+                className="cursor-pointer rounded-lg outline-offset-2 transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-400"
                 aria-label="Back to landing page"
               >
                 <img
                   src={logo}
-                  alt="Car-Bliss Logo"
-                  className="h-16 w-auto object-contain brightness-0 invert"
+                  alt=""
+                  width={64}
+                  height={64}
+                  className="h-14 w-auto object-contain brightness-0 invert"
                 />
               </button>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="max-w-md text-sm leading-relaxed text-slate-400">
               Your trusted source for premium car cleaning products. Hand-picked
-              selections to keep your vehicle looking brand new. We bring you
-              the best car care solutions from top brands.
+              selections to keep your vehicle looking its best. We bring you
+              practical solutions from trusted brands.
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4 text-lg text-white">
-              Quick Links
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">
+              Quick links
             </h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-slate-400">
               <li>
                 <button
+                  type="button"
                   onClick={() => go("/about")}
-                  className="cursor-pointer hover:opacity-80 transition-opacity"
+                  className="rounded text-left hover:text-white"
                 >
-                  About Us
+                  About us
                 </button>
               </li>
               <li>
                 <button
+                  type="button"
                   onClick={() => go("/contact")}
-                  className="cursor-pointer hover:opacity-80 transition-opacity"
+                  className="rounded text-left hover:text-white"
                 >
                   Contact
                 </button>
               </li>
               <li>
                 <button
+                  type="button"
                   onClick={() => go("/privacy")}
-                  className="cursor-pointer hover:opacity-80 transition-opacity"
+                  className="rounded text-left hover:text-white"
                 >
-                  Privacy Policy
+                  Privacy policy
                 </button>
               </li>
               <li>
                 <button
+                  type="button"
                   onClick={() => go("/how-we-review")}
-                  className="cursor-pointer hover:opacity-80 transition-opacity"
+                  className="rounded text-left hover:text-white"
                 >
-                  How We Review
+                  How we review
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Categories */}
           <div>
-            <h4 className="font-semibold mb-4 text-lg text-white">
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">
               Categories
             </h4>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li className="hover:text-white transition-colors cursor-pointer">
-                Combo Kits
-              </li>
-              <li className="hover:text-white transition-colors cursor-pointer">
-                Car Shampoos
-              </li>
-              <li className="hover:text-white transition-colors cursor-pointer">
-                Pressure Washers
-              </li>
-              <li className="hover:text-white transition-colors cursor-pointer">
-                Interior Care
-              </li>
-              <li className="hover:text-white transition-colors cursor-pointer">
-                Polish & Wax
-              </li>
+            <ul className="space-y-2 text-sm text-slate-400">
+              <li className="hover:text-white">Combo kits</li>
+              <li className="hover:text-white">Car shampoos</li>
+              <li className="hover:text-white">Pressure washers</li>
+              <li className="hover:text-white">Interior care</li>
+              <li className="hover:text-white">Polish & wax</li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-gray-700 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-            <p>(c) 2026 Car-Bliss. All rights reserved.</p>
-            <p className="text-center md:text-right">
-              Affiliate Disclosure: As an Amazon Associate, we earn from
-              qualifying purchases.
+        <div className="mt-10 border-t border-slate-800 pt-8">
+          <div className="flex flex-col items-center justify-between gap-4 text-center text-sm text-slate-500 md:flex-row md:text-left">
+            <p>© {new Date().getFullYear()} Car-Bliss. All rights reserved.</p>
+            <p className="max-w-xl md:text-right">
+              Affiliate disclosure: As an Amazon Associate, we earn from qualifying purchases.
             </p>
           </div>
         </div>

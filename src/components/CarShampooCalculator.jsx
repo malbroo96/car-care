@@ -12,25 +12,25 @@ export default function CarShampooCalculator() {
 
   return (
     <section
-      className="max-w-6xl mx-auto px-4 my-12"
+      className="mx-auto my-12 max-w-7xl px-4 sm:px-5"
       aria-labelledby="car-shampoo-calculator"
     >
-      <div className="bg-white border rounded-2xl shadow-sm p-6 md:p-8">
+      <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-8">
         <h2
           id="car-shampoo-calculator"
-          className="text-2xl md:text-3xl font-bold mb-2"
+          className="mb-2 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl"
         >
-          Car Shampoo Calculator
+          Car shampoo calculator
         </h2>
-        <p className="text-gray-600 mb-6">
+        <p className="mb-6 text-slate-600">
           Pick your car size to estimate shampoo needed for one wash.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+        <div className="grid grid-cols-1 items-end gap-6 md:grid-cols-2">
           <div>
             <label
               htmlFor="car-size"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="mb-2 block text-sm font-medium text-slate-700"
             >
               Car size
             </label>
@@ -38,7 +38,7 @@ export default function CarShampooCalculator() {
               id="car-size"
               value={carSize}
               onChange={(e) => setCarSize(e.target.value)}
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="min-h-[44px] w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30"
             >
               <option value="small">Small</option>
               <option value="medium">Medium</option>
@@ -46,9 +46,9 @@ export default function CarShampooCalculator() {
             </select>
           </div>
 
-          <div className="bg-gray-50 border rounded-xl p-4">
-            <p className="text-sm text-gray-600">Estimated shampoo per wash</p>
-            <p className="text-2xl font-bold text-gray-900 mt-1">
+          <div className="rounded-xl border border-sky-100 bg-gradient-to-br from-sky-50 to-slate-50 p-5">
+            <p className="text-sm text-slate-600">Estimated shampoo per wash</p>
+            <p className="mt-1 text-3xl font-bold tabular-nums text-slate-900">
               {shampooNeeded} ml
             </p>
           </div>

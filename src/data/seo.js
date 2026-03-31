@@ -25,7 +25,7 @@ export const organization = {
   name: "Car-Bliss",
   legalName: "Car-Bliss",
   url: "https://www.car-bliss.com",
-  logo: "https://www.car-bliss.com/src/assets/logo.png",
+  logo: "https://www.car-bliss.com/logo.png",
   email: "support@car-bliss.com",
   sameAs: ["https://www.instagram.com/carbliss_for_cars/"],
   description:

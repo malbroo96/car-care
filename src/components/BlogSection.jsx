@@ -163,22 +163,22 @@ export default function BlogSection() {
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-4 my-12" aria-labelledby="car-care-guides-heading">
-      <h2 id="car-care-guides-heading" className="text-2xl md:text-3xl font-bold mb-2">
-        Car Care Guides
+    <section className="mx-auto my-12 max-w-7xl px-4 sm:px-5" aria-labelledby="car-care-guides-heading">
+      <h2 id="car-care-guides-heading" className="mb-2 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
+        Car care guides
       </h2>
-      <p className="text-gray-600 mb-8">
+      <p className="mb-8 max-w-2xl text-slate-600">
         Practical car detailing tips to help you clean, protect, and maintain your vehicle.
       </p>
 
       <div className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-10 md:w-16 bg-gradient-to-r from-gray-50 to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-10 md:w-16 bg-gradient-to-l from-gray-50 to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-[var(--app-bg)] to-transparent sm:w-12 md:w-16" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-[var(--app-bg)] to-transparent sm:w-12 md:w-16" />
 
         <div
           ref={marqueeRef}
-          className="blog-scroll overflow-x-auto overflow-y-hidden cursor-grab active:cursor-grabbing"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none", touchAction: "pan-y pinch-zoom" }}
+          className="blog-scroll cursor-grab overflow-x-auto overflow-y-hidden active:cursor-grabbing"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none", touchAction: "pan-x pinch-zoom" }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onWheel={handleWheel}
@@ -187,24 +187,24 @@ export default function BlogSection() {
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
         >
-          <div className="flex gap-5 w-max py-1">
+          <div className="flex w-max snap-x snap-mandatory gap-4 py-1 sm:gap-5">
           {marqueeGuides.map((guide, index) => (
             <article
               key={`${guide.id}-${index}`}
-              className="reveal-scale w-[280px] sm:w-[320px] bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow"
+              className="reveal-scale w-[280px] shrink-0 snap-start sm:w-[320px] rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm ring-1 ring-black/5 transition hover:shadow-md"
               style={{ "--reveal-delay": `${(index % 8) * 55}ms` }}
             >
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              <h3 className="mb-3 text-lg font-semibold leading-snug text-slate-900">
                 {guide.title}
               </h3>
-              <p className="text-sm text-gray-600 leading-6 mb-5">
+              <p className="mb-5 text-sm leading-6 text-slate-600">
                 {guide.summary}
               </p>
               <Link
                 to={guide.link}
-                className="inline-flex items-center justify-center rounded-lg bg-black text-white px-4 py-2.5 hover:bg-gray-800 transition-colors"
+                className="inline-flex min-h-[44px] w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"
               >
-                Read More
+                Read more
               </Link>
             </article>
           ))}

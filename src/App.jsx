@@ -11,8 +11,11 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import Seo from "./components/Seo";
 import FaqSection from "./components/FaqSection";
+import CarScrollExperience from "./components/CarScrollExperience";
+import CompareBar from "./components/CompareBar";
 
 import AboutUs from "./pages/AboutUs";
+import Compare from "./pages/Compare";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import GuideWashWithoutSwirlMarks from "./pages/GuideWashWithoutSwirlMarks";
@@ -21,6 +24,7 @@ import GuideWaxVsCeramicSpray from "./pages/GuideWaxVsCeramicSpray";
 import HowWeReview from "./pages/HowWeReview";
 
 import { categories, products } from "./data/products";
+import { useCompare } from "./context/CompareContext";
 import { useEffect, useMemo, useState } from "react";
 import {
   buildFaqSchema,
@@ -71,11 +75,6 @@ function Home() {
         "@type": "WebSite",
         name: "Car-Bliss",
         url: "https://www.car-bliss.com/",
-        potentialAction: {
-          "@type": "SearchAction",
-          target: "https://www.car-bliss.com/?q={search_term_string}",
-          "query-input": "required name=search_term_string",
-        },
       },
       buildProductListSchema(
         products,
@@ -149,6 +148,7 @@ function Home() {
         structuredData={homepageStructuredData}
       />
       <Hero />
+      <CarScrollExperience />
       <div id="best-sellers">
         <Navbar
           categories={categories}
@@ -158,7 +158,7 @@ function Home() {
       </div>
       {showShampooCalculator && <CarShampooCalculator />}
       <BlogSection />
-      <div id="products" className="max-w-6xl mx-auto px-4">
+      <div id="products" className="mx-auto max-w-7xl px-4 sm:px-5">
         <CategorySection title={activeCategory} products={filteredProducts} />
       </div>
       <TrustSection />
@@ -168,22 +168,30 @@ function Home() {
 }
 
 function App() {
+  const { count: compareCount } = useCompare();
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-[var(--app-bg)] text-[var(--app-fg)] font-sans antialiased">
       <Header />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
-        <Route path="/how-we-review" element={<HowWeReview />} />
-        {guideRoutes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
-      </Routes>
+      <main
+        className={`flex-1 w-full min-w-0 ${compareCount > 0 ? "pb-28 sm:pb-24" : ""}`}
+      >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/compare" element={<Compare />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/how-we-review" element={<HowWeReview />} />
+          {guideRoutes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Routes>
+      </main>
 
       <Footer />
+      <CompareBar />
       <ScrollToTop />
     </div>
   );

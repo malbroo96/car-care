@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
-import logo from "../assets/logo.png";
 
 const SITE_NAME = "Car-Bliss";
 const SITE_URL = "https://www.car-bliss.com";
@@ -19,7 +18,7 @@ export default function Seo({
   keywords = DEFAULT_KEYWORDS,
   path,
   type = "website",
-  image = logo,
+  image = "/logo.png",
   noIndex = false,
   structuredData,
 }) {
@@ -43,7 +42,7 @@ export default function Seo({
       <meta name="author" content={SITE_NAME} />
       <meta name="robots" content={robotsContent} />
       <meta name="googlebot" content={robotsContent} />
-      <meta name="theme-color" content="#0f172a" />
+      <meta name="theme-color" content="#0c1222" />
       <meta name="referrer" content="strict-origin-when-cross-origin" />
       <meta name="format-detection" content="telephone=no" />
       <link rel="canonical" href={canonicalUrl} />
