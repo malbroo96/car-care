@@ -24,7 +24,6 @@ import GuideWaxVsCeramicSpray from "./pages/GuideWaxVsCeramicSpray";
 import HowWeReview from "./pages/HowWeReview";
 
 import { categories, products } from "./data/products";
-import { useCompare } from "./context/CompareContext";
 import { useEffect, useMemo, useState } from "react";
 import {
   buildFaqSchema,
@@ -168,15 +167,11 @@ function Home() {
 }
 
 function App() {
-  const { count: compareCount } = useCompare();
-
   return (
     <div className="min-h-screen flex flex-col bg-[var(--app-bg)] text-[var(--app-fg)] font-sans antialiased">
       <Header />
 
-      <main
-        className={`flex-1 w-full min-w-0 ${compareCount > 0 ? "pb-28 sm:pb-24" : ""}`}
-      >
+      <main className="flex-1 w-full min-w-0 [overflow-anchor:none] pb-[env(safe-area-inset-bottom)]">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/compare" element={<Compare />} />

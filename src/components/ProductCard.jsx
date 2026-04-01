@@ -55,7 +55,7 @@ export default function ProductCard({ product, revealIndex = 0 }) {
       <div className="mt-4 flex flex-col gap-2">
         <button
           type="button"
-          onClick={() => toggle(product.id)}
+          onClick={() => toggle(product.id, window.scrollY)}
           disabled={disabled}
           aria-pressed={inCompare}
           title={

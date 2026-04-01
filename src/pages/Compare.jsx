@@ -151,7 +151,7 @@ export default function Compare() {
                         </p>
                         <button
                           type="button"
-                          onClick={() => remove(p.id)}
+                          onClick={() => remove(p.id, window.scrollY)}
                           className="text-left text-xs font-medium text-red-600 hover:underline"
                         >
                           Remove

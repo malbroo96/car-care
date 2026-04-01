@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useId, useRef } from "react";
 import {
   motion as Motion,
   useReducedMotion,
@@ -29,6 +29,11 @@ function StaticFallback() {
 }
 
 function CarSvg({ wheelRotation }) {
+  const uid = useId().replace(/:/g, "");
+  const gidBody = `car-body-${uid}`;
+  const gidGlass = `car-glass-${uid}`;
+  const gidRim = `car-rim-${uid}`;
+
   return (
     <svg
       viewBox="0 0 400 140"
@@ -36,26 +41,26 @@ function CarSvg({ wheelRotation }) {
       aria-hidden
     >
       <defs>
-        <linearGradient id="carBody" x1="0%" y1="0%" x2="100%" y2="50%">
+        <linearGradient id={gidBody} x1="0%" y1="0%" x2="100%" y2="50%">
           <stop offset="0%" stopColor="#1e293b" />
           <stop offset="45%" stopColor="#334155" />
           <stop offset="100%" stopColor="#0f172a" />
         </linearGradient>
-        <linearGradient id="carGlass" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id={gidGlass} x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#7dd3fc" stopOpacity="0.85" />
           <stop offset="100%" stopColor="#0284c7" stopOpacity="0.4" />
         </linearGradient>
-        <linearGradient id="rim" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id={gidRim} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#94a3b8" />
           <stop offset="100%" stopColor="#475569" />
         </linearGradient>
       </defs>
       <path
-        fill="url(#carBody)"
+        fill={`url(#${gidBody})`}
         d="M52 78 L72 58 L155 48 L260 48 L310 58 L348 72 L352 88 L348 98 L52 98 Z"
       />
       <path
-        fill="url(#carGlass)"
+        fill={`url(#${gidGlass})`}
         d="M165 52 L248 52 L285 58 L295 68 L155 68 Z"
         opacity="0.95"
       />
@@ -63,9 +68,15 @@ function CarSvg({ wheelRotation }) {
       <ellipse cx="338" cy="78" rx="8" ry="5" fill="#fef08a" opacity="0.9" />
       <ellipse cx="58" cy="82" rx="5" ry="8" fill="#f87171" opacity="0.85" />
 
-      <Motion.g style={{ rotate: wheelRotation, transformOrigin: "88px 112px" }}>
+      <Motion.g
+        style={{
+          rotate: wheelRotation,
+          transformOrigin: "88px 112px",
+          transformBox: "fill-box",
+        }}
+      >
         <circle cx="88" cy="112" r="26" fill="#0f172a" />
-        <circle cx="88" cy="112" r="17" fill="url(#rim)" />
+        <circle cx="88" cy="112" r="17" fill={`url(#${gidRim})`} />
         <circle cx="88" cy="112" r="6" fill="#1e293b" />
         <line
           x1="88"
@@ -85,9 +96,15 @@ function CarSvg({ wheelRotation }) {
         />
       </Motion.g>
 
-      <Motion.g style={{ rotate: wheelRotation, transformOrigin: "288px 112px" }}>
+      <Motion.g
+        style={{
+          rotate: wheelRotation,
+          transformOrigin: "288px 112px",
+          transformBox: "fill-box",
+        }}
+      >
         <circle cx="288" cy="112" r="26" fill="#0f172a" />
-        <circle cx="288" cy="112" r="17" fill="url(#rim)" />
+        <circle cx="288" cy="112" r="17" fill={`url(#${gidRim})`} />
         <circle cx="288" cy="112" r="6" fill="#1e293b" />
         <line
           x1="288"
@@ -113,9 +130,10 @@ function CarSvg({ wheelRotation }) {
 function CarScrollAnimated() {
   const containerRef = useRef(null);
 
+  /* Tighter offset so progress moves noticeably while the section crosses the viewport (works better on tall desktop screens) */
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    offset: ["start 0.92", "end 0.08"],
   });
 
   const sceneRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [8, 2, -4]);
@@ -144,7 +162,7 @@ function CarScrollAnimated() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[195vh] border-y border-slate-200/50 bg-slate-950"
+      className="relative min-h-[220vh] border-y border-slate-200/50 bg-slate-950 md:min-h-[260vh]"
       aria-labelledby="car-scroll-heading"
     >
       <div className="mx-auto max-w-7xl px-4 pb-8 pt-14 sm:px-5 sm:pt-16">
@@ -162,7 +180,8 @@ function CarScrollAnimated() {
         </div>
       </div>
 
-      <div className="sticky top-0 flex h-[100dvh] min-h-[31rem] items-center justify-center overflow-hidden">
+      {/* overflow-visible: overflow-hidden here clipped the 3D transforms on wide viewports and broke the “living” feel on desktop */}
+      <div className="sticky top-0 z-0 flex min-h-[max(31rem,100dvh)] items-center justify-center overflow-visible py-4">
         <Motion.div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(56,189,248,0.35),transparent),radial-gradient(ellipse_60%_40%_at_80%_100%,rgba(16,185,129,0.12),transparent)]"

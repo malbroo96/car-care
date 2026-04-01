@@ -46,7 +46,7 @@ export default function CompareBar() {
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <button
             type="button"
-            onClick={clear}
+            onClick={() => clear(window.scrollY)}
             className="min-h-[44px] rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
           >
             Clear
