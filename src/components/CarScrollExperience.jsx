@@ -28,7 +28,8 @@ function progressToIndex(progress, n) {
 
 function sectionMinHeightVh(frameCount) {
   if (frameCount <= 0) return 220;
-  return Math.min(440, Math.max(230, 170 + frameCount * 2.55));
+  /* Taller section = slower progress per px scroll = easier to land on each frame */
+  return Math.min(520, Math.max(260, 170 + frameCount * 3.15));
 }
 
 function scheduleIdle(fn) {
@@ -40,9 +41,12 @@ function scheduleIdle(fn) {
   return () => clearTimeout(t);
 }
 
-function bindDecode(img, gen, decodeGenRef, onReady) {
+function bindDecode(img, gen, decodeGenRef, onReady, onSuperseded) {
   const done = () => {
-    if (gen !== decodeGenRef.current) return;
+    if (gen !== decodeGenRef.current) {
+      onSuperseded?.();
+      return;
+    }
     onReady();
   };
   const d = img.decode?.();
@@ -58,10 +62,18 @@ function bindDecode(img, gen, decodeGenRef, onReady) {
   }
 }
 
-function afterPaint(callback) {
-  requestAnimationFrame(() => {
-    requestAnimationFrame(callback);
-  });
+function prefetchWindowSync(centerIndex, prefetchSetRef, radius = 20) {
+  const n = FRAME_COUNT;
+  if (!n) return;
+  const lo = Math.max(0, centerIndex - radius);
+  const hi = Math.min(n - 1, centerIndex + radius);
+  for (let j = lo; j <= hi; j++) {
+    const url = FRAME_URLS[j];
+    if (prefetchSetRef.current.has(url)) continue;
+    prefetchSetRef.current.add(url);
+    const im = new Image();
+    im.src = url;
+  }
 }
 
 /** @param {{ flat3D?: boolean }} props */
@@ -77,6 +89,7 @@ function CarScrollAnimated({ flat3D = false }) {
   const rafRef = useRef(0);
   const latestProgressRef = useRef(0);
   const prefetchSetRef = useRef(new Set());
+  const applyFrameRef = useRef(() => {});
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -159,6 +172,11 @@ function CarScrollAnimated({ flat3D = false }) {
       const b = imgBRef.current;
       if (!a || !b) return;
 
+      const prevCommitted = committedIndexRef.current;
+      if (Math.abs(i - prevCommitted) > 6) {
+        prefetchWindowSync(i, prefetchSetRef, 28);
+      }
+
       decodeInFlightRef.current = i;
       const gen = ++decodeGenRef.current;
 
@@ -167,18 +185,103 @@ function CarScrollAnimated({ flat3D = false }) {
       const showBOnTop = hidden === b;
 
       hidden.src = url;
-      bindDecode(hidden, gen, decodeGenRef, () => {
-        afterPaint(() => {
-          if (gen !== decodeGenRef.current) return;
+
+      const chase = () => {
+        applyFrameRef.current(latestProgressRef.current);
+      };
+
+      const commitFrame = () => {
+        requestAnimationFrame(() => {
+          if (gen !== decodeGenRef.current) {
+            chase();
+            return;
+          }
           swapLayers(showBOnTop);
           decodeInFlightRef.current = null;
           committedIndexRef.current = i;
           prefetchAround(i);
+
+          let steps = 0;
+          while (steps++ < 64) {
+            const target = progressToIndex(latestProgressRef.current, n);
+            if (target === committedIndexRef.current) break;
+
+            const na = imgARef.current;
+            const nb = imgBRef.current;
+            if (!na || !nb) break;
+
+            const hid = frontIsARef.current ? nb : na;
+            const nextUrl = FRAME_URLS[target];
+            hid.src = nextUrl;
+
+            if (!hid.complete || hid.naturalWidth === 0) {
+              decodeInFlightRef.current = target;
+              const gen2 = ++decodeGenRef.current;
+              const showB2 = hid === nb;
+              bindDecode(hid, gen2, decodeGenRef, () => {
+                requestAnimationFrame(() => {
+                  if (gen2 !== decodeGenRef.current) {
+                    chase();
+                    return;
+                  }
+                  swapLayers(showB2);
+                  decodeInFlightRef.current = null;
+                  committedIndexRef.current = target;
+                  prefetchAround(target);
+                  chase();
+                });
+              }, chase);
+              return;
+            }
+
+            const showB2 = hid === nb;
+            const dec = hid.decode?.();
+            if (dec && typeof dec.then === "function") {
+              decodeInFlightRef.current = target;
+              const gen2 = ++decodeGenRef.current;
+              dec
+                .then(() => {
+                  requestAnimationFrame(() => {
+                    if (gen2 !== decodeGenRef.current) {
+                      chase();
+                      return;
+                    }
+                    swapLayers(showB2);
+                    decodeInFlightRef.current = null;
+                    committedIndexRef.current = target;
+                    prefetchAround(target);
+                    chase();
+                  });
+                })
+                .catch(chase);
+              return;
+            }
+
+            swapLayers(showB2);
+            committedIndexRef.current = target;
+            prefetchAround(target);
+          }
+
+          chase();
         });
-      });
+      };
+
+      if (hidden.complete && hidden.naturalWidth > 0) {
+        const d = hidden.decode?.();
+        if (d && typeof d.then === "function") {
+          d.then(commitFrame).catch(commitFrame);
+        } else {
+          commitFrame();
+        }
+        return;
+      }
+
+      bindDecode(hidden, gen, decodeGenRef, commitFrame, chase);
     },
     [prefetchAround, swapLayers],
   );
+
+  applyFrameRef.current = applyFrameFromProgress;
 
   useLayoutEffect(() => {
     const a = imgARef.current;
@@ -222,24 +325,32 @@ function CarScrollAnimated({ flat3D = false }) {
 
   useEffect(() => {
     if (!FRAME_COUNT) return;
-    const cancelers = [];
-    const prime = () => {
-      for (let j = 0; j < Math.min(28, FRAME_COUNT); j++) {
-        const url = FRAME_URLS[j];
+    let cancelled = false;
+    let idx = 0;
+    const chunk = 14;
+    const pump = () => {
+      if (cancelled) return;
+      const end = Math.min(idx + chunk, FRAME_COUNT);
+      for (; idx < end; idx++) {
+        const url = FRAME_URLS[idx];
         if (prefetchSetRef.current.has(url)) continue;
         prefetchSetRef.current.add(url);
         const im = new Image();
         im.src = url;
       }
+      if (idx < FRAME_COUNT) scheduleIdle(pump);
     };
-    cancelers.push(scheduleIdle(prime));
-    return () => cancelers.forEach((c) => c());
+    const cancelFirst = scheduleIdle(pump);
+    return () => {
+      cancelled = true;
+      cancelFirst();
+    };
   }, []);
 
   const minVh = sectionMinHeightVh(FRAME_COUNT);
 
   const imgClass =
-    "absolute inset-0 h-full w-full object-cover bg-slate-900 [user-select:none] [backface-visibility:hidden] [transform:translate3d(0,0,0)] transition-[opacity] duration-[320ms] [transition-timing-function:cubic-bezier(0.33,0.06,0.25,1)] will-change-[opacity]";
+    "absolute inset-0 h-full w-full object-cover bg-slate-900 [user-select:none] [backface-visibility:hidden] [transform:translate3d(0,0,0)] transition-[opacity] duration-[165ms] [transition-timing-function:cubic-bezier(0.25,0.1,0.25,1)] will-change-[opacity]";
 
   const mediaFrameClass =
     "relative mx-auto w-full max-w-4xl overflow-hidden rounded-2xl shadow-[0_28px_90px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.06)] ring-1 ring-white/20 transform-gpu [transform-style:preserve-3d] [contain:strict]";
