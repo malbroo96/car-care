@@ -29,7 +29,7 @@ export default function ScrollToTop() {
         <button
           type="button"
           onClick={scrollToTop}
-          className={`fixed right-[max(1rem,env(safe-area-inset-right))] z-[60] flex h-12 w-12 items-center justify-center rounded-full bg-sky-600 text-white shadow-lg shadow-sky-900/30 transition hover:bg-sky-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 sm:right-8 sm:h-14 sm:w-14 ${
+          className={`fixed right-[max(0.75rem,env(safe-area-inset-right))] z-[60] flex h-11 w-11 items-center justify-center rounded-full bg-sky-600 text-white shadow-lg shadow-sky-900/30 transition hover:bg-sky-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 sm:right-6 sm:h-12 sm:w-12 md:right-8 md:h-14 md:w-14 ${
             compareCount > 0
               ? "bottom-[calc(5.5rem+env(safe-area-inset-bottom))] sm:bottom-32"
               : "bottom-[max(1.25rem,env(safe-area-inset-bottom))] sm:bottom-8"

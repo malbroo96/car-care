@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AnimatePresence, motion as Motion, useReducedMotion } from "framer-motion";
 import logo from "../assets/logo.png";
 import { useCompare } from "../context/CompareContext";
 
@@ -24,7 +25,7 @@ function isNavActive(to, pathname, hash) {
 }
 
 const navLinkClass = (active) =>
-  `rounded-lg px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 ${
+  `rounded-lg px-2.5 py-2 text-xs font-medium transition-colors lg:px-3 lg:py-2 lg:text-[13px] xl:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 ${
     active
       ? "bg-white/10 text-white"
       : "text-slate-300 hover:bg-white/5 hover:text-white"
@@ -69,6 +70,7 @@ function CompareMobileLink({ onNavigate }) {
 export default function Header() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -96,72 +98,101 @@ export default function Header() {
     setMenuOpen((o) => !o);
   };
 
-  const overlay = menuOpen ? (
-      <div className="lg:hidden">
-        <button
-          type="button"
-          className="fixed inset-0 z-[100] cursor-default bg-black/60 backdrop-blur-sm"
-          aria-label="Close menu"
-          onClick={closeMenu}
-        />
-        <div
-          id="mobile-nav"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Site menu"
-          className="fixed bottom-0 right-0 top-16 z-[105] flex w-[min(100vw-1rem,20rem)] max-h-[calc(100dvh-4rem)] flex-col overflow-hidden rounded-tl-xl border border-white/10 border-b-0 bg-zinc-950 shadow-2xl"
-        >
-          <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Menu
-            </p>
-            <button
-              type="button"
-              onClick={closeMenu}
-              className="rounded-lg p-2 text-slate-300 hover:bg-white/10"
-              aria-label="Close menu"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+  const panelTransition = reduceMotion
+    ? { duration: 0.2 }
+    : { type: "spring", damping: 28, stiffness: 320, mass: 0.85 };
+
+  const overlay = (
+    <AnimatePresence initial={false}>
+      {menuOpen ? (
+        <>
+          <Motion.button
+            key="mobile-backdrop"
+            type="button"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0.15 : 0.28 }}
+            className="fixed inset-0 z-[100] cursor-default bg-black/60 backdrop-blur-sm lg:hidden"
+            aria-label="Close menu"
+            onClick={closeMenu}
+          />
+          <Motion.div
+            key="mobile-panel"
+            id="mobile-nav"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
+            initial={{ x: "105%", opacity: reduceMotion ? 1 : 0.96 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "105%", opacity: reduceMotion ? 1 : 0.96 }}
+            transition={panelTransition}
+            className="fixed bottom-0 right-0 top-16 z-[105] flex w-[min(100vw-1rem,20rem)] max-h-[calc(100dvh-4rem-env(safe-area-inset-bottom))] flex-col overflow-hidden rounded-tl-xl border border-white/10 border-b-0 bg-zinc-950 shadow-2xl sm:w-[min(100vw-1.5rem,22rem)] md:w-[min(100vw-2rem,24rem)] md:rounded-tl-2xl lg:hidden"
+          >
+            <div className="shrink-0 border-b border-white/10 px-4 py-3.5">
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                Menu
+              </p>
+            </div>
+            <nav className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto overscroll-contain p-3">
+              {navLinks.map((item, i) =>
+                item.to === "/compare" ? (
+                  <Motion.div
+                    key={item.to}
+                    initial={{ opacity: 0, x: reduceMotion ? 0 : 14 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: reduceMotion ? 0 : 0.04 + i * 0.05,
+                      duration: reduceMotion ? 0 : 0.35,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    <CompareMobileLink onNavigate={closeMenu} />
+                  </Motion.div>
+                ) : (
+                  <Motion.div
+                    key={item.to}
+                    initial={{ opacity: 0, x: reduceMotion ? 0 : 14 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: reduceMotion ? 0 : 0.04 + i * 0.05,
+                      duration: reduceMotion ? 0 : 0.35,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    <Link
+                      to={item.to}
+                      onClick={closeMenu}
+                      className="block rounded-xl px-4 py-3 text-base font-medium text-slate-200 transition-colors hover:bg-white/10"
+                    >
+                      {item.label}
+                    </Link>
+                  </Motion.div>
+                )
+              )}
+              <Motion.div
+                className="mt-auto"
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: reduceMotion ? 0 : 0.2 + navLinks.length * 0.04,
+                  duration: reduceMotion ? 0 : 0.3,
+                }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          <nav className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto overscroll-contain p-3">
-            {navLinks.map((item) =>
-              item.to === "/compare" ? (
-                <CompareMobileLink key={item.to} onNavigate={closeMenu} />
-              ) : (
                 <Link
-                  key={item.to}
-                  to={item.to}
+                  to="/privacy"
                   onClick={closeMenu}
-                  className="rounded-xl px-4 py-3 text-base font-medium text-slate-200 hover:bg-white/10"
+                  className="block rounded-xl px-4 py-3 text-sm text-slate-500 transition-colors hover:bg-white/5"
                 >
-                  {item.label}
+                  Privacy policy
                 </Link>
-              )
-            )}
-            <Link
-              to="/privacy"
-              onClick={closeMenu}
-              className="mt-auto rounded-xl px-4 py-3 text-sm text-slate-500 hover:bg-white/5"
-            >
-              Privacy policy
-            </Link>
-          </nav>
-        </div>
-      </div>
-  ) : null;
+              </Motion.div>
+            </nav>
+          </Motion.div>
+        </>
+      ) : null}
+    </AnimatePresence>
+  );
 
   return (
     <header
@@ -169,7 +200,7 @@ export default function Header() {
         menuOpen ? "z-[200]" : "z-[70]"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-3 sm:gap-3 sm:px-5">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-2 px-3 py-3 sm:gap-3 sm:px-4 md:px-6 lg:px-8">
         {/* Left: on mobile use grid so the menu control never overlaps text */}
         <div className="grid min-w-0 flex-1 grid-cols-[auto_minmax(0,1fr)] items-center gap-2 sm:gap-3 lg:flex lg:min-w-0 lg:flex-1 lg:items-center lg:gap-4">
           <button
@@ -193,7 +224,7 @@ export default function Header() {
               onClick={goHome}
               className="block max-w-full text-left hover:opacity-90"
             >
-              <span className="text-lg font-bold tracking-tight sm:text-xl">
+              <span className="text-lg font-bold tracking-tight sm:text-xl md:text-2xl lg:text-xl xl:text-2xl">
                 Car-Bliss
               </span>
             </button>
@@ -205,7 +236,7 @@ export default function Header() {
         </div>
 
         <nav
-          className="hidden shrink-0 items-center gap-0.5 lg:flex"
+          className="hidden shrink-0 items-center gap-0.5 lg:flex lg:gap-1 xl:gap-1.5"
           aria-label="Main navigation"
         >
           {navLinks.map((item) =>
@@ -218,51 +249,83 @@ export default function Header() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
-          <span className="hidden text-[11px] text-slate-500 xl:inline">
+          <span className="hidden max-w-[8rem] truncate text-[10px] text-slate-500 lg:inline xl:max-w-none xl:text-[11px]">
             Amazon Affiliate
           </span>
           <button
             type="button"
-            className="inline-flex min-h-[48px] min-w-[48px] touch-manipulation items-center justify-center rounded-lg border border-white/15 bg-white/10 p-2 text-white shadow-inner hover:bg-white/20 active:bg-white/25 lg:hidden"
+            className="relative inline-flex min-h-[48px] min-w-[48px] touch-manipulation items-center justify-center overflow-hidden rounded-lg border border-white/15 bg-white/10 p-2 text-white shadow-inner transition-[transform,background-color,box-shadow] duration-200 hover:bg-white/20 active:scale-[0.96] active:bg-white/25 lg:hidden"
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             onClick={toggleMenu}
           >
-            {menuOpen ? (
-              <svg
-                className="h-6 w-6 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="h-6 w-6 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
+            <span className="relative h-6 w-6 shrink-0">
+              <AnimatePresence mode="wait" initial={false}>
+                {menuOpen ? (
+                  <Motion.svg
+                    key="close-icon"
+                    className="absolute inset-0 h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden
+                    initial={
+                      reduceMotion
+                        ? false
+                        : { opacity: 0, rotate: -45, scale: 0.85 }
+                    }
+                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                    exit={
+                      reduceMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, rotate: 45, scale: 0.85 }
+                    }
+                    transition={{ duration: reduceMotion ? 0.12 : 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </Motion.svg>
+                ) : (
+                  <Motion.svg
+                    key="menu-icon"
+                    className="absolute inset-0 h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden
+                    initial={
+                      reduceMotion
+                        ? false
+                        : { opacity: 0, rotate: 45, scale: 0.85 }
+                    }
+                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                    exit={
+                      reduceMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, rotate: -45, scale: 0.85 }
+                    }
+                    transition={{ duration: reduceMotion ? 0.12 : 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </Motion.svg>
+                )}
+              </AnimatePresence>
+            </span>
           </button>
         </div>
       </div>
 
-      {overlay ? createPortal(overlay, document.body) : null}
+      {createPortal(overlay, document.body)}
     </header>
   );
 }

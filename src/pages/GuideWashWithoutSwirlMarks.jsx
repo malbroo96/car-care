@@ -69,7 +69,7 @@ export default function GuideWashWithoutSwirlMarks() {
           buildFaqSchema(faqs),
         ]}
       />
-      <main className="max-w-4xl mx-auto px-4">
+      <main className="mx-auto w-full max-w-4xl px-3 sm:px-4 md:px-6 lg:px-8">
         <article className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
             How to Wash Your Car Without Causing Swirl Marks

@@ -18,19 +18,25 @@ const trustPoints = [
 
 export default function TrustSection() {
   return (
-    <section className="mx-auto my-12 max-w-7xl px-4 sm:px-5" aria-labelledby="why-choose-car-bliss">
-      <h2 id="why-choose-car-bliss" className="mb-2 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
+    <section
+      className="mx-auto my-10 w-full max-w-7xl px-3 sm:my-12 sm:px-4 md:px-6 lg:px-8"
+      aria-labelledby="why-choose-car-bliss"
+    >
+      <h2
+        id="why-choose-car-bliss"
+        className="mb-2 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl"
+      >
         Why choose Car-Bliss
       </h2>
       <p className="mb-8 max-w-2xl text-slate-600">
         Built to help car owners choose confidently and care for their vehicles better.
       </p>
 
-      <div className="mb-8 grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3">
+      <div className="mb-8 grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
         {trustPoints.map((point, index) => (
           <article
             key={point.title}
-            className="reveal-scale rounded-2xl border border-slate-200/90 bg-gradient-to-b from-white to-slate-50/80 p-5 shadow-sm ring-1 ring-black/5 transition hover:shadow-md"
+            className="reveal-scale rounded-2xl border border-slate-200/90 bg-gradient-to-b from-white to-slate-50/80 p-4 shadow-sm ring-1 ring-black/5 transition hover:shadow-md sm:p-5 md:p-6"
             style={{ "--reveal-delay": `${index * 90}ms` }}
           >
             <h3 className="mb-2 text-lg font-semibold text-slate-900">{point.title}</h3>
@@ -39,7 +45,7 @@ export default function TrustSection() {
         ))}
       </div>
 
-      <div className="rounded-2xl border border-slate-200/90 bg-slate-50/90 p-6 shadow-inner ring-1 ring-black/5 sm:p-8">
+      <div className="rounded-2xl border border-slate-200/90 bg-slate-50/90 p-5 shadow-inner ring-1 ring-black/5 sm:p-6 md:p-8">
         <h3 className="mb-3 text-xl font-bold text-slate-900">
           How we build recommendations
         </h3>

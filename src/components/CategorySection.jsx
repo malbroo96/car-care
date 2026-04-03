@@ -12,10 +12,17 @@ export default function CategorySection({ title, products }) {
   const guideLink = categoryGuideLinks[title];
 
   return (
-    <section className="my-10" id={toSectionId(title)} aria-labelledby={`${toSectionId(title)}-heading`}>
-      <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <section
+      className="my-8 sm:my-10 md:my-12"
+      id={toSectionId(title)}
+      aria-labelledby={`${toSectionId(title)}-heading`}
+    >
+      <div className="mb-5 flex flex-col gap-4 sm:mb-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-3xl">
-          <h2 id={`${toSectionId(title)}-heading`} className="mb-2 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
+          <h2
+            id={`${toSectionId(title)}-heading`}
+            className="mb-2 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl"
+          >
             {title}
           </h2>
           {description ? (
@@ -38,7 +45,7 @@ export default function CategorySection({ title, products }) {
         ) : null}
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 md:gap-7 lg:grid-cols-3 lg:gap-8">
         {products.map((product, index) => (
           <ProductCard key={product.id} product={product} revealIndex={index} />
         ))}

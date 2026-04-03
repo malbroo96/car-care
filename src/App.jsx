@@ -157,7 +157,10 @@ function Home() {
       </div>
       {showShampooCalculator && <CarShampooCalculator />}
       <BlogSection />
-      <div id="products" className="mx-auto max-w-7xl px-4 sm:px-5">
+      <div
+        id="products"
+        className="mx-auto w-full max-w-7xl px-3 sm:px-4 md:px-6 lg:px-8"
+      >
         <CategorySection title={activeCategory} products={filteredProducts} />
       </div>
       <TrustSection />
@@ -168,10 +171,10 @@ function Home() {
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--app-bg)] text-[var(--app-fg)] font-sans antialiased">
+    <div className="flex min-h-dvh min-w-0 flex-col bg-[var(--app-bg)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] text-[var(--app-fg)] font-sans antialiased">
       <Header />
 
-      <main className="flex-1 w-full min-w-0 [overflow-anchor:none] pb-[env(safe-area-inset-bottom)]">
+      <main className="flex min-w-0 w-full flex-1 flex-col [overflow-anchor:none] pb-[env(safe-area-inset-bottom)]">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/compare" element={<Compare />} />

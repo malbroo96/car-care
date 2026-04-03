@@ -1,273 +1,340 @@
-import { useId, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import {
   motion as Motion,
+  useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
 
-function StaticFallback() {
-  return (
-    <section
-      className="border-y border-slate-200/80 bg-gradient-to-b from-sky-100/80 to-white py-16"
-      aria-labelledby="car-scroll-heading"
-    >
-      <div className="mx-auto max-w-7xl px-4 text-center sm:px-5">
-        <h2
-          id="car-scroll-heading"
-          className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl"
-        >
-          Detailing that moves with you
-        </h2>
-        <p className="mx-auto mt-2 max-w-xl text-slate-600">
-          Scroll-driven motion is reduced on your device. Browse products and
-          guides for wash, interior, and protection picks.
-        </p>
-      </div>
-    </section>
-  );
+const frameModules = import.meta.glob(
+  "../assets/scroll-animation/frames/**/*.{png,jpg,jpeg,webp,avif}",
+  { eager: true, import: "default" },
+);
+
+const FRAME_URLS = Object.keys(frameModules)
+  .filter((path) => !path.includes("/.git"))
+  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+  .map((key) => frameModules[key]);
+
+const FRAME_COUNT = FRAME_URLS.length;
+const FIRST_SRC = FRAME_URLS[0] ?? "";
+
+function progressToIndex(progress, n) {
+  if (n <= 0) return 0;
+  const t = Math.min(1, Math.max(0, progress));
+  return Math.min(n - 1, Math.floor(t * n));
 }
 
-function CarSvg({ wheelRotation }) {
-  const uid = useId().replace(/:/g, "");
-  const gidBody = `car-body-${uid}`;
-  const gidGlass = `car-glass-${uid}`;
-  const gidRim = `car-rim-${uid}`;
-
-  return (
-    <svg
-      viewBox="0 0 400 140"
-      className="h-auto w-full drop-shadow-[0_25px_45px_rgba(15,23,42,0.35)]"
-      aria-hidden
-    >
-      <defs>
-        <linearGradient id={gidBody} x1="0%" y1="0%" x2="100%" y2="50%">
-          <stop offset="0%" stopColor="#1e293b" />
-          <stop offset="45%" stopColor="#334155" />
-          <stop offset="100%" stopColor="#0f172a" />
-        </linearGradient>
-        <linearGradient id={gidGlass} x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#7dd3fc" stopOpacity="0.85" />
-          <stop offset="100%" stopColor="#0284c7" stopOpacity="0.4" />
-        </linearGradient>
-        <linearGradient id={gidRim} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#94a3b8" />
-          <stop offset="100%" stopColor="#475569" />
-        </linearGradient>
-      </defs>
-      <path
-        fill={`url(#${gidBody})`}
-        d="M52 78 L72 58 L155 48 L260 48 L310 58 L348 72 L352 88 L348 98 L52 98 Z"
-      />
-      <path
-        fill={`url(#${gidGlass})`}
-        d="M165 52 L248 52 L285 58 L295 68 L155 68 Z"
-        opacity="0.95"
-      />
-      <path fill="#0f172a" d="M52 78 L348 78 L348 88 L52 88 Z" opacity="0.35" />
-      <ellipse cx="338" cy="78" rx="8" ry="5" fill="#fef08a" opacity="0.9" />
-      <ellipse cx="58" cy="82" rx="5" ry="8" fill="#f87171" opacity="0.85" />
-
-      <Motion.g
-        style={{
-          rotate: wheelRotation,
-          transformOrigin: "88px 112px",
-          transformBox: "fill-box",
-        }}
-      >
-        <circle cx="88" cy="112" r="26" fill="#0f172a" />
-        <circle cx="88" cy="112" r="17" fill={`url(#${gidRim})`} />
-        <circle cx="88" cy="112" r="6" fill="#1e293b" />
-        <line
-          x1="88"
-          y1="95"
-          x2="88"
-          y2="129"
-          stroke="#64748b"
-          strokeWidth="3"
-        />
-        <line
-          x1="71"
-          y1="112"
-          x2="105"
-          y2="112"
-          stroke="#64748b"
-          strokeWidth="3"
-        />
-      </Motion.g>
-
-      <Motion.g
-        style={{
-          rotate: wheelRotation,
-          transformOrigin: "288px 112px",
-          transformBox: "fill-box",
-        }}
-      >
-        <circle cx="288" cy="112" r="26" fill="#0f172a" />
-        <circle cx="288" cy="112" r="17" fill={`url(#${gidRim})`} />
-        <circle cx="288" cy="112" r="6" fill="#1e293b" />
-        <line
-          x1="288"
-          y1="95"
-          x2="288"
-          y2="129"
-          stroke="#64748b"
-          strokeWidth="3"
-        />
-        <line
-          x1="271"
-          y1="112"
-          x2="305"
-          y2="112"
-          stroke="#64748b"
-          strokeWidth="3"
-        />
-      </Motion.g>
-    </svg>
-  );
+function sectionMinHeightVh(frameCount) {
+  if (frameCount <= 0) return 220;
+  return Math.min(440, Math.max(230, 170 + frameCount * 2.55));
 }
 
-function CarScrollAnimated() {
+function scheduleIdle(fn) {
+  if (typeof requestIdleCallback !== "undefined") {
+    const id = requestIdleCallback(() => fn(), { timeout: 400 });
+    return () => cancelIdleCallback(id);
+  }
+  const t = setTimeout(fn, 40);
+  return () => clearTimeout(t);
+}
+
+function bindDecode(img, gen, decodeGenRef, onReady) {
+  const done = () => {
+    if (gen !== decodeGenRef.current) return;
+    onReady();
+  };
+  const d = img.decode?.();
+  if (d && typeof d.then === "function") {
+    d.then(done).catch(() => {
+      if (img.complete) done();
+      else img.onload = () => done();
+    });
+  } else if (img.complete) {
+    done();
+  } else {
+    img.onload = () => done();
+  }
+}
+
+function afterPaint(callback) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(callback);
+  });
+}
+
+/** @param {{ flat3D?: boolean }} props */
+function CarScrollAnimated({ flat3D = false }) {
   const containerRef = useRef(null);
+  const imgARef = useRef(null);
+  const imgBRef = useRef(null);
+  const frontIsARef = useRef(true);
+  const decodeGenRef = useRef(0);
+  const decodeInFlightRef = useRef(/** @type {number | null} */ (null));
+  const committedIndexRef = useRef(0);
 
-  /* Tighter offset so progress moves noticeably while the section crosses the viewport (works better on tall desktop screens) */
+  const rafRef = useRef(0);
+  const latestProgressRef = useRef(0);
+  const prefetchSetRef = useRef(new Set());
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 0.92", "end 0.08"],
+    offset: ["start start", "end end"],
   });
 
-  const sceneRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [8, 2, -4]);
-  const glowOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.25, 0.7, 0.35]);
+  const glowOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [0.25, 0.65, 0.35],
+  );
+  const stageRotateX = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [8, 1.5, -6],
+  );
+  const frameRotateY = useTransform(scrollYProgress, [0, 1], [-11, 11]);
+  const frameScale = useTransform(
+    scrollYProgress,
+    [0, 0.45, 1],
+    [0.92, 1.03, 0.94],
+  );
+  const frameTranslateZ = useTransform(scrollYProgress, [0, 0.5, 1], [12, 36, 18]);
 
-  const carX = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-  const carY = useTransform(scrollYProgress, [0, 0.45, 1], [56, 12, -8]);
-  const carScale = useTransform(scrollYProgress, [0, 0.55, 1], [0.42, 1.02, 0.88]);
-  const carRotateY = useTransform(scrollYProgress, [0, 1], [22, -20]);
-  const carRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [4, 0, -6]);
+  const swapLayers = useCallback((showB) => {
+    const a = imgARef.current;
+    const b = imgBRef.current;
+    if (!a || !b) return;
+    if (showB) {
+      b.style.opacity = "1";
+      b.style.zIndex = "2";
+      a.style.opacity = "0";
+      a.style.zIndex = "1";
+      frontIsARef.current = false;
+    } else {
+      a.style.opacity = "1";
+      a.style.zIndex = "2";
+      b.style.opacity = "0";
+      b.style.zIndex = "1";
+      frontIsARef.current = true;
+    }
+  }, []);
 
-  const wheelRotation = useTransform(scrollYProgress, [0, 1], [0, -1440]);
+  const prefetchAround = useCallback((centerIndex) => {
+    const n = FRAME_COUNT;
+    if (!n) return;
+    scheduleIdle(() => {
+      for (const delta of [
+        -15, -12, -10, -8, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 8, 10,
+        12, 15,
+      ]) {
+        const j = centerIndex + delta;
+        if (j < 0 || j >= n) continue;
+        const url = FRAME_URLS[j];
+        if (prefetchSetRef.current.has(url)) continue;
+        prefetchSetRef.current.add(url);
+        const im = new Image();
+        im.src = url;
+      }
+    });
+  }, []);
 
-  const roadScaleZ = useTransform(scrollYProgress, [0, 1], [0.82, 1.12]);
-  const roadDash = useTransform(scrollYProgress, [0, 1], [0, -420]);
+  const applyFrameFromProgress = useCallback(
+    (progress) => {
+      const n = FRAME_COUNT;
+      if (!n) return;
+      const i = progressToIndex(progress, n);
 
-  const stripeLeft = useTransform(scrollYProgress, [0, 1], ["-12%", "18%"]);
-  const stripeRight = useTransform(scrollYProgress, [0, 1], ["108%", "82%"]);
+      if (i === committedIndexRef.current) {
+        if (decodeInFlightRef.current !== null) {
+          decodeGenRef.current += 1;
+          decodeInFlightRef.current = null;
+        }
+        return;
+      }
 
-  const shadowOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.35, 0.65, 0.45]);
+      if (decodeInFlightRef.current === i) return;
 
-  const streakY = useTransform(scrollYProgress, [0, 1], [48, -72]);
-  const streakOpacity = useTransform(scrollYProgress, [0, 0.35, 0.7, 1], [0.12, 0.45, 0.35, 0.18]);
-  const streakScaleY = useTransform(scrollYProgress, [0, 1], [0.65, 1.35]);
+      const a = imgARef.current;
+      const b = imgBRef.current;
+      if (!a || !b) return;
+
+      decodeInFlightRef.current = i;
+      const gen = ++decodeGenRef.current;
+
+      const hidden = frontIsARef.current ? b : a;
+      const url = FRAME_URLS[i];
+      const showBOnTop = hidden === b;
+
+      hidden.src = url;
+      bindDecode(hidden, gen, decodeGenRef, () => {
+        afterPaint(() => {
+          if (gen !== decodeGenRef.current) return;
+          swapLayers(showBOnTop);
+          decodeInFlightRef.current = null;
+          committedIndexRef.current = i;
+          prefetchAround(i);
+        });
+      });
+    },
+    [prefetchAround, swapLayers],
+  );
+
+  useLayoutEffect(() => {
+    const a = imgARef.current;
+    const b = imgBRef.current;
+    if (!a || !b || !FIRST_SRC) return;
+    a.src = FIRST_SRC;
+    b.src = FIRST_SRC;
+    a.style.opacity = "1";
+    a.style.zIndex = "2";
+    b.style.opacity = "0";
+    b.style.zIndex = "1";
+    frontIsARef.current = true;
+    decodeInFlightRef.current = null;
+    committedIndexRef.current = 0;
+    decodeGenRef.current = 0;
+  }, []);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    latestProgressRef.current = latest;
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = 0;
+      applyFrameFromProgress(latestProgressRef.current);
+    });
+  });
+
+  useEffect(
+    () => () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    },
+    [],
+  );
+
+  useEffect(() => {
+    if (!FRAME_COUNT) return;
+    const id = requestAnimationFrame(() => {
+      applyFrameFromProgress(scrollYProgress.get());
+    });
+    return () => cancelAnimationFrame(id);
+  }, [scrollYProgress, applyFrameFromProgress]);
+
+  useEffect(() => {
+    if (!FRAME_COUNT) return;
+    const cancelers = [];
+    const prime = () => {
+      for (let j = 0; j < Math.min(28, FRAME_COUNT); j++) {
+        const url = FRAME_URLS[j];
+        if (prefetchSetRef.current.has(url)) continue;
+        prefetchSetRef.current.add(url);
+        const im = new Image();
+        im.src = url;
+      }
+    };
+    cancelers.push(scheduleIdle(prime));
+    return () => cancelers.forEach((c) => c());
+  }, []);
+
+  const minVh = sectionMinHeightVh(FRAME_COUNT);
+
+  const imgClass =
+    "absolute inset-0 h-full w-full object-cover bg-slate-900 [user-select:none] [backface-visibility:hidden] [transform:translate3d(0,0,0)] transition-[opacity] duration-[320ms] [transition-timing-function:cubic-bezier(0.33,0.06,0.25,1)] will-change-[opacity]";
+
+  const mediaFrameClass =
+    "relative mx-auto w-full max-w-4xl overflow-hidden rounded-2xl shadow-[0_28px_90px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.06)] ring-1 ring-white/20 transform-gpu [transform-style:preserve-3d] [contain:strict]";
+  const shellClass =
+    "relative h-[min(68dvh,420px)] w-full max-w-5xl [perspective:1200px] sm:h-[min(72dvh,480px)] md:h-[min(74dvh,520px)] lg:h-[min(75dvh,560px)]";
+
+  const sequenceEl =
+    FRAME_COUNT > 0 ? (
+      <div className="relative h-full w-full bg-slate-900">
+        <img
+          ref={imgARef}
+          alt="Scrubbable product animation; scroll the page to change frames."
+          className={imgClass}
+          decoding="async"
+          fetchPriority="high"
+          draggable={false}
+        />
+        <img
+          ref={imgBRef}
+          alt=""
+          className={imgClass}
+          decoding="async"
+          draggable={false}
+          aria-hidden
+        />
+      </div>
+    ) : (
+      <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-slate-900 px-6 text-center">
+        <p className="text-sm font-medium text-slate-200">No frames yet</p>
+        <p className="max-w-md text-xs leading-relaxed text-slate-500">
+          Add PNG / WebP / AVIF files under{" "}
+          <code className="rounded bg-slate-800 px-1.5 py-0.5 text-[10px] text-sky-300">
+            src/assets/scroll-animation/frames/
+          </code>
+          . Use zero-padded names so they sort in order.
+        </p>
+      </div>
+    );
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[220vh] border-y border-slate-200/50 bg-slate-950 md:min-h-[260vh]"
+      className="relative border-y border-slate-200/50 bg-slate-950"
+      style={{ minHeight: `${minVh}vh` }}
       aria-labelledby="car-scroll-heading"
     >
-      <div className="mx-auto max-w-7xl px-4 pb-8 pt-14 sm:px-5 sm:pt-16">
+      <div className="mx-auto w-full max-w-7xl px-3 pb-8 pt-12 sm:px-4 sm:pt-14 md:px-6 md:pt-16 lg:px-8">
         <div className="max-w-2xl">
           <h2
             id="car-scroll-heading"
-            className="text-2xl font-bold tracking-tight text-white md:text-3xl"
+            className="text-xl font-bold tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl"
           >
             Drive through the detail
           </h2>
-          <p className="mt-2 text-slate-400">
-            Scroll to move the scene — 3D-style perspective, spinning wheels,
-            and road motion.
-          </p>
         </div>
       </div>
 
-      {/* overflow-visible: overflow-hidden here clipped the 3D transforms on wide viewports and broke the “living” feel on desktop */}
-      <div className="sticky top-0 z-0 flex min-h-[max(31rem,100dvh)] items-center justify-center overflow-visible py-4">
+      <div className="sticky top-16 z-0 min-h-[max(28rem,calc(100dvh-4rem))] py-4 sm:min-h-[max(32rem,calc(100dvh-4rem))] sm:py-6">
         <Motion.div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(56,189,248,0.35),transparent),radial-gradient(ellipse_60%_40%_at_80%_100%,rgba(16,185,129,0.12),transparent)]"
-          style={{ opacity: glowOpacity }}
+          style={flat3D ? { opacity: 0.4 } : { opacity: glowOpacity }}
         />
 
-        <div className="relative h-full w-full max-w-6xl px-2 sm:px-4">
-          <div
-            className="relative mx-auto h-[min(85dvh,560px)] w-full max-w-5xl [perspective:1100px]"
-            style={{ perspectiveOrigin: "50% 35%" }}
-          >
-            <Motion.div
-              className="relative h-full w-full transform-gpu [transform-style:preserve-3d]"
-              style={{ rotateX: sceneRotateX }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-sky-500/90 via-sky-200/50 to-slate-300/80" />
-
+        <div className="relative mx-auto flex max-w-6xl justify-center px-2 sm:px-4 md:px-5 lg:px-6">
+          <div className={shellClass} style={{ perspectiveOrigin: "50% 38%" }}>
+            {flat3D ? (
+              <div className="relative h-full w-full">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-sky-500/25 via-slate-900/40 to-slate-950 ring-1 ring-white/10" />
+                <div
+                  className={`${mediaFrameClass} h-[min(68dvh,420px)] bg-slate-900 sm:h-[min(72dvh,480px)] md:h-[min(74dvh,520px)] lg:h-[min(75dvh,560px)]`}
+                >
+                  {sequenceEl}
+                </div>
+              </div>
+            ) : (
               <Motion.div
-                className="absolute bottom-[38%] left-0 right-0 h-[22%] bg-gradient-to-t from-slate-600/40 to-transparent"
-                style={{ x: stripeLeft }}
-              />
-              <Motion.div
-                className="absolute bottom-[36%] left-0 right-0 h-[18%] bg-gradient-to-t from-slate-500/30 to-transparent"
-                style={{ x: stripeRight }}
-              />
-
-              <Motion.div
-                className="absolute bottom-0 left-1/2 h-[48%] w-[135%] -translate-x-1/2 rounded-t-[100%] bg-gradient-to-b from-slate-600 to-slate-900 shadow-[0_-4px_60px_rgba(0,0,0,0.5)]"
-                style={{
-                  rotateX: 58,
-                  scale: roadScaleZ,
-                  transformOrigin: "50% 100%",
-                  translateZ: -20,
-                }}
+                className="relative h-full w-full transform-gpu will-change-transform [transform-style:preserve-3d]"
+                style={{ rotateX: stageRotateX }}
               >
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-sky-500/25 via-slate-900/40 to-slate-950 ring-1 ring-white/10" />
                 <Motion.div
-                  className="absolute left-1/2 top-[8%] h-[72%] w-[3px] -translate-x-1/2 rounded-full bg-[repeating-linear-gradient(180deg,#f8fafc_0px,#f8fafc_14px,transparent_14px,transparent_28px)] opacity-90"
-                  style={{ y: roadDash }}
-                />
-                <div className="absolute bottom-[15%] left-[6%] top-[10%] w-[2px] rounded-full bg-sky-400/40 blur-[1px]" />
-                <div className="absolute bottom-[15%] right-[6%] top-[10%] w-[2px] rounded-full bg-sky-400/40 blur-[1px]" />
-              </Motion.div>
-
-              {[18, 42, 66].map((left) => (
-                <Motion.div
-                  key={left}
-                  className="absolute top-[22%] w-[2px] rounded-full bg-white/30"
+                  className={`${mediaFrameClass} h-[min(68dvh,420px)] bg-slate-900 will-change-transform sm:h-[min(72dvh,480px)] md:h-[min(74dvh,520px)] lg:h-[min(75dvh,560px)]`}
                   style={{
-                    left: `${left}%`,
-                    height: "42%",
-                    opacity: streakOpacity,
-                    y: streakY,
-                    scaleY: streakScaleY,
+                    rotateY: frameRotateY,
+                    scale: frameScale,
+                    translateZ: frameTranslateZ,
                   }}
-                />
-              ))}
-
-              <Motion.div
-                className="absolute bottom-[12%] left-1/2 w-[min(88vw,440px)] max-w-none -translate-x-1/2 transform-gpu [transform-style:preserve-3d] sm:bottom-[14%]"
-                style={{
-                  x: carX,
-                  y: carY,
-                  scale: carScale,
-                  rotateY: carRotateY,
-                  rotateX: carRotateX,
-                  translateZ: 60,
-                }}
-              >
-                <CarSvg wheelRotation={wheelRotation} />
+                >
+                  {sequenceEl}
+                </Motion.div>
               </Motion.div>
-
-              <Motion.div
-                className="absolute bottom-[10%] left-1/2 h-8 w-[min(70vw,280px)] -translate-x-1/2 rounded-[100%] bg-black/45 blur-xl"
-                style={{
-                  scaleX: carScale,
-                  opacity: shadowOpacity,
-                }}
-              />
-            </Motion.div>
+            )}
           </div>
         </div>
-
-        <p className="pointer-events-none absolute bottom-6 left-1/2 z-10 max-w-sm -translate-x-1/2 px-4 text-center text-[11px] text-slate-500 sm:bottom-8 sm:text-xs">
-          Scroll slowly — the car and road respond to your position in this
-          section.
-        </p>
       </div>
     </section>
   );
@@ -276,7 +343,7 @@ function CarScrollAnimated() {
 export default function CarScrollExperience() {
   const reduceMotion = useReducedMotion();
   if (reduceMotion) {
-    return <StaticFallback />;
+    return <CarScrollAnimated flat3D />;
   }
   return <CarScrollAnimated />;
 }

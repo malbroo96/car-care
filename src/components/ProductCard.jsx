@@ -14,7 +14,7 @@ export default function ProductCard({ product, revealIndex = 0 }) {
 
   return (
     <div
-      className="reveal-scale group relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/10 hover:ring-slate-300/80"
+      className="reveal-scale group relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm ring-1 ring-black/5 transition-all duration-300 sm:p-5 md:p-5 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/10 hover:ring-slate-300/80"
       style={{ "--reveal-delay": revealDelay }}
     >
       {isBestSeller && (
@@ -35,7 +35,9 @@ export default function ProductCard({ product, revealIndex = 0 }) {
         </div>
       )}
 
-      <h3 className="text-lg font-semibold leading-snug text-slate-900">{product.name}</h3>
+      <h3 className="text-base font-semibold leading-snug text-slate-900 sm:text-lg">
+        {product.name}
+      </h3>
       <p className="mt-0.5 text-slate-600">{product.price || product.brand}</p>
 
       <div

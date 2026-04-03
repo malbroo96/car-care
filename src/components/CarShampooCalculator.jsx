@@ -12,13 +12,13 @@ export default function CarShampooCalculator() {
 
   return (
     <section
-      className="mx-auto my-12 max-w-7xl px-4 sm:px-5"
+      className="mx-auto my-10 w-full max-w-7xl px-3 sm:my-12 sm:px-4 md:px-6 lg:px-8"
       aria-labelledby="car-shampoo-calculator"
     >
-      <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-8">
+      <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm ring-1 ring-black/5 sm:p-6 md:p-8">
         <h2
           id="car-shampoo-calculator"
-          className="mb-2 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl"
+          className="mb-2 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl"
         >
           Car shampoo calculator
         </h2>

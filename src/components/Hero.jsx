@@ -61,7 +61,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative min-h-[min(100svh,42rem)] md:h-[min(90svh,42rem)] overflow-hidden bg-zinc-950"
+      className="relative min-h-[min(100svh,40rem)] overflow-hidden bg-zinc-950 sm:min-h-[min(100svh,42rem)] md:min-h-[min(88svh,44rem)] lg:h-[min(90svh,42rem)] lg:min-h-0"
       aria-roledescription="carousel"
       aria-label="Featured car care categories"
     >
@@ -87,8 +87,8 @@ export default function Hero() {
         </div>
       ))}
 
-      <div className="relative z-10 flex min-h-[min(100svh,42rem)] flex-col items-center justify-center px-4 py-16 md:min-h-0 md:py-0">
-        <div className="mx-auto max-w-3xl text-center text-white">
+      <div className="relative z-10 flex min-h-[min(100svh,40rem)] flex-col items-center justify-center px-4 py-14 sm:px-6 sm:py-16 md:min-h-[min(88svh,44rem)] md:px-8 md:py-20 lg:min-h-[min(90svh,42rem)] lg:py-0">
+        <div className="mx-auto w-full max-w-3xl text-center text-white">
           <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/85 sm:text-xs sm:tracking-[0.2em]">
             Trusted car care essentials
           </p>
@@ -122,7 +122,7 @@ export default function Hero() {
       <button
         type="button"
         onClick={prevSlide}
-        className="absolute left-2 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/20 p-2.5 text-white backdrop-blur-md transition hover:bg-white/35 sm:block md:left-4 md:p-3"
+        className="absolute left-1 top-1/2 z-20 flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-full bg-white/20 p-2 text-white backdrop-blur-md transition hover:bg-white/35 sm:left-2 sm:p-2.5 md:left-4 md:p-3"
         aria-label="Previous slide"
       >
         <svg className="h-5 w-5 md:h-6 md:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -133,7 +133,7 @@ export default function Hero() {
       <button
         type="button"
         onClick={nextSlide}
-        className="absolute right-2 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/20 p-2.5 text-white backdrop-blur-md transition hover:bg-white/35 sm:block md:right-4 md:p-3"
+        className="absolute right-1 top-1/2 z-20 flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-full bg-white/20 p-2 text-white backdrop-blur-md transition hover:bg-white/35 sm:right-2 sm:p-2.5 md:right-4 md:p-3"
         aria-label="Next slide"
       >
         <svg className="h-5 w-5 md:h-6 md:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -142,7 +142,7 @@ export default function Hero() {
       </button>
 
       <div
-        className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-1.5 sm:bottom-8 sm:gap-2"
+        className="absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-20 flex -translate-x-1/2 gap-1.5 sm:bottom-8 sm:gap-2 md:bottom-10"
         role="tablist"
         aria-label="Slide indicators"
       >

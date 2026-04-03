@@ -163,8 +163,14 @@ export default function BlogSection() {
   };
 
   return (
-    <section className="mx-auto my-12 max-w-7xl px-4 sm:px-5" aria-labelledby="car-care-guides-heading">
-      <h2 id="car-care-guides-heading" className="mb-2 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
+    <section
+      className="mx-auto my-10 w-full max-w-7xl px-3 sm:my-12 sm:px-4 md:px-6 lg:px-8"
+      aria-labelledby="car-care-guides-heading"
+    >
+      <h2
+        id="car-care-guides-heading"
+        className="mb-2 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl"
+      >
         Car care guides
       </h2>
       <p className="mb-8 max-w-2xl text-slate-600">
@@ -187,11 +193,11 @@ export default function BlogSection() {
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
         >
-          <div className="flex w-max snap-x snap-mandatory gap-4 py-1 sm:gap-5">
+          <div className="flex w-max snap-x snap-mandatory gap-3 py-1 sm:gap-4 md:gap-5">
           {marqueeGuides.map((guide, index) => (
             <article
               key={`${guide.id}-${index}`}
-              className="reveal-scale w-[280px] shrink-0 snap-start sm:w-[320px] rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm ring-1 ring-black/5 transition hover:shadow-md"
+              className="reveal-scale w-[min(85vw,280px)] shrink-0 snap-start rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm ring-1 ring-black/5 transition hover:shadow-md sm:w-[300px] sm:p-5 md:w-[320px]"
               style={{ "--reveal-delay": `${(index % 8) * 55}ms` }}
             >
               <h3 className="mb-3 text-lg font-semibold leading-snug text-slate-900">

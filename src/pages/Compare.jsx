@@ -74,7 +74,7 @@ export default function Compare() {
         structuredData={structuredData}
       />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-5">
+      <div className="mx-auto w-full max-w-7xl px-3 sm:px-4 md:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">

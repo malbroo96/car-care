@@ -11,8 +11,8 @@ export default function Footer() {
 
   return (
     <footer className="mt-auto border-t border-slate-800 bg-slate-950 text-white">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-5">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+      <div className="mx-auto w-full max-w-7xl px-3 py-10 sm:px-4 sm:py-12 md:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 sm:gap-10 md:grid-cols-2 md:gap-10 lg:grid-cols-4 lg:gap-8">
           <div className="lg:col-span-2">
             <div className="mb-4 flex items-center gap-2">
               <button
@@ -46,7 +46,7 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={() => go("/about")}
-                  className="rounded text-left hover:text-white"
+                  className="inline-flex min-h-[44px] w-full items-center rounded py-2 text-left hover:text-white sm:min-h-0 sm:w-auto sm:py-1"
                 >
                   About us
                 </button>
@@ -55,7 +55,7 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={() => go("/contact")}
-                  className="rounded text-left hover:text-white"
+                  className="inline-flex min-h-[44px] w-full items-center rounded py-2 text-left hover:text-white sm:min-h-0 sm:w-auto sm:py-1"
                 >
                   Contact
                 </button>
@@ -64,7 +64,7 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={() => go("/privacy")}
-                  className="rounded text-left hover:text-white"
+                  className="inline-flex min-h-[44px] w-full items-center rounded py-2 text-left hover:text-white sm:min-h-0 sm:w-auto sm:py-1"
                 >
                   Privacy policy
                 </button>
@@ -73,7 +73,7 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={() => go("/how-we-review")}
-                  className="rounded text-left hover:text-white"
+                  className="inline-flex min-h-[44px] w-full items-center rounded py-2 text-left hover:text-white sm:min-h-0 sm:w-auto sm:py-1"
                 >
                   How we review
                 </button>

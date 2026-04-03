@@ -34,6 +34,12 @@ body {
   overflow-anchor: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent rare horizontal overflow on small / notched devices */
+  overflow-x: clip;
+}
+
+#root {
+  min-width: 0;
 }
 
 ::selection {
